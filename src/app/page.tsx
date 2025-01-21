@@ -2,50 +2,167 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Globe, Search, Server, MessageCircle, AlertCircle, Home, Database, Clock, Link, Zap, Shield } from 'lucide-react';
+import { Globe, Search, Server, Database, FileText, Settings, User, Network } from 'lucide-react';
 
-const DNSMeetPresentation = () => {
+const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      title: "DNS: Your Internet GPS",
-      content: (
-        <div className="flex flex-col items-center space-y-6">
-          <div className="flex items-center space-x-8">
-            <Search className="w-16 h-16 text-blue-500" />
-            <Globe className="w-16 h-16 text-green-500" />
-          </div>
-          <div className="text-xl text-center">
-            "How does your computer find websites?"
-          </div>
-          <div className="bg-blue-100 p-4 rounded-lg w-full">
-            💡 Chat Question: What website do you visit most often?
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "The Problem DNS Solves",
+      title: "Understanding DNS: The Internet's Contact List",
       content: (
         <div className="flex flex-col space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-red-50 rounded-lg">
-              <h3 className="font-bold mb-2">Without DNS</h3>
-              <div className="space-y-2">
-                <p>❌ Remember IP addresses</p>
-                <p>❌ Type numbers manually</p>
-                <p>❌ Update when IPs change</p>
-                <p className="mt-4 text-sm italic">Imagine memorizing phone numbers for every person you know!</p>
+          <div className="flex items-center justify-center space-x-8">
+            <div className="flex flex-col items-center">
+              <Globe className="w-16 h-16 text-blue-500" />
+              <p className="text-lg mt-2">example.com</p>
+            </div>
+            <div className="text-2xl">=</div>
+            <div className="flex flex-col items-center">
+              <Server className="w-16 h-16 text-green-500" />
+              <p className="text-lg mt-2">192.0.2.1</p>
+            </div>
+          </div>
+          <div className="bg-blue-50 p-4 rounded-lg text-center">
+            <p className="text-xl">DNS: Domain Name System</p>
+            <p className="text-gray-600 mt-2">Like a contacts list that converts website names into IP addresses</p>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Parts of the Domain Name System: Overview",
+      content: (
+        <div className="grid grid-cols-3 gap-4">
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h3 className="font-bold mb-2">Domain Names</h3>
+            <ul className="space-y-2 text-sm">
+              <li>• TLD (.com)</li>
+              <li>• Domain (example)</li>
+              <li>• Subdomain (www)</li>
+            </ul>
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h3 className="font-bold mb-2">Infrastructure</h3>
+            <ul className="space-y-2 text-sm">
+              <li>• Registrars</li>
+              <li>• Registry Operators</li>
+              <li>• DNS Servers</li>
+            </ul>
+          </div>
+          <div className="p-4 bg-yellow-50 rounded-lg">
+            <h3 className="font-bold mb-2">Records</h3>
+            <ul className="space-y-2 text-sm">
+              <li>• A Records</li>
+              <li>• CNAME</li>
+              <li>• NS, MX, TXT</li>
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Anatomy of a Domain Name",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <div className="p-6 bg-white rounded-lg border-2 border-gray-200">
+            <div className="flex items-center justify-center space-x-1">
+              <div className="px-3 py-2 bg-blue-100 rounded">
+                <p className="text-lg">blog</p>
+                <p className="text-xs text-gray-600">subdomain</p>
+              </div>
+              <div className="text-xl">.</div>
+              <div className="px-3 py-2 bg-green-100 rounded">
+                <p className="text-lg">example</p>
+                <p className="text-xs text-gray-600">domain</p>
+              </div>
+              <div className="text-xl">.</div>
+              <div className="px-3 py-2 bg-orange-100 rounded">
+                <p className="text-lg">com</p>
+                <p className="text-xs text-gray-600">TLD</p>
               </div>
             </div>
+          </div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="p-3 bg-orange-50 rounded-lg">
+              <h3 className="font-bold mb-1">Top-level Domain</h3>
+              <p className="text-sm">Generic: .com, .org, .net</p>
+              <p className="text-sm">Country: .uk, .jp</p>
+            </div>
+            <div className="p-3 bg-green-50 rounded-lg">
+              <h3 className="font-bold mb-1">Domain</h3>
+              <p className="text-sm">Your unique identifier</p>
+              <p className="text-sm">Second-level domain</p>
+            </div>
+            <div className="p-3 bg-blue-50 rounded-lg">
+              <h3 className="font-bold mb-1">Subdomain</h3>
+              <p className="text-sm">Optional prefix</p>
+              <p className="text-sm">e.g., www, blog, mail</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Registrars and Registry Operators",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <div className="grid grid-cols-2 gap-6">
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <h3 className="font-bold mb-2 flex items-center">
+                <Server className="w-6 h-6 mr-2" />
+                Registrars
+              </h3>
+              <ul className="space-y-2">
+                <li>• Sell domain names</li>
+                <li>• Manage domain registration</li>
+                <li>• Examples: GoDaddy, Porkbun</li>
+                <li>• Handle DNS configuration</li>
+              </ul>
+            </div>
             <div className="p-4 bg-green-50 rounded-lg">
-              <h3 className="font-bold mb-2">With DNS</h3>
-              <div className="space-y-2">
-                <p>✅ Use simple names</p>
-                <p>✅ Automatic lookup</p>
-                <p>✅ Always up to date</p>
-                <p className="mt-4 text-sm italic">Like having a smart contact list that updates itself!</p>
+              <h3 className="font-bold mb-2 flex items-center">
+                <Database className="w-6 h-6 mr-2" />
+                Registry Operators
+              </h3>
+              <ul className="space-y-2">
+                <li>• Manage TLD databases</li>
+                <li>• VeriSign (.com, .net)</li>
+                <li>• Public Interest (.org)</li>
+                <li>• Maintain DNS records</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Registrants (You!)",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <div className="p-6 bg-blue-50 rounded-lg">
+            <div className="flex items-center justify-center mb-4">
+              <User className="w-16 h-16 text-blue-500" />
+            </div>
+            <h3 className="text-xl font-bold text-center mb-4">Domain Name Owner</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-3 bg-white rounded-lg">
+                <h4 className="font-bold mb-2">Rights</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Control DNS settings</li>
+                  <li>• Manage subdomains</li>
+                  <li>• Transfer ownership</li>
+                  <li>• Configure records</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-white rounded-lg">
+                <h4 className="font-bold mb-2">Responsibilities</h4>
+                <ul className="space-y-2 text-sm">
+                  <li>• Keep contact info updated</li>
+                  <li>• Renew registration</li>
+                  <li>• Follow ICANN rules</li>
+                  <li>• Maintain DNS records</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -53,154 +170,160 @@ const DNSMeetPresentation = () => {
       )
     },
     {
-      title: "DNS Step by Step",
+      title: "DNS Servers Hierarchy",
       content: (
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-6">
+          <div className="space-y-4">
+            <div className="p-4 bg-purple-50 rounded-lg">
+              <h3 className="font-bold mb-2">Root Servers</h3>
+              <p className="text-sm">• 13 root server systems worldwide (a-m.root-servers.net)</p>
+              <p className="text-sm">• Managed by 12 different organizations</p>
+              <p className="text-sm">• Foundation of DNS hierarchy</p>
+            </div>
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <h3 className="font-bold mb-2">TLD Servers</h3>
+              <p className="text-sm">• Manage specific TLDs (.com, .org, etc.)</p>
+              <p className="text-sm">• Operated by registry operators</p>
+              <p className="text-sm">• Store NS records for domains</p>
+            </div>
+            <div className="p-4 bg-green-50 rounded-lg">
+              <h3 className="font-bold mb-2">Authoritative Name Servers</h3>
+              <p className="text-sm">• Store actual DNS records</p>
+              <p className="text-sm">• Managed by domain owners</p>
+              <p className="text-sm">• Provide final IP addresses</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "DNS Records",
+      content: (
+        <div className="flex flex-col space-y-4">
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h3 className="font-bold mb-2 flex items-center">
+              <FileText className="w-6 h-6 mr-2" />
+              A Record
+            </h3>
+            <p className="text-sm">Maps domain name to IPv4 address</p>
+            <p className="text-xs bg-white p-2 rounded mt-2 font-mono">example.com → 192.0.2.1</p>
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h3 className="font-bold mb-2">CNAME Record</h3>
+            <p className="text-sm">Creates an alias pointing to another domain</p>
+            <p className="text-xs bg-white p-2 rounded mt-2 font-mono">www.example.com → example.com</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-yellow-50 rounded-lg">
+              <h4 className="font-bold">MX Record</h4>
+              <p className="text-sm">Mail server settings</p>
+              <p className="text-xs bg-white p-2 rounded mt-2 font-mono">@ → mail.example.com</p>
+            </div>
+            <div className="p-4 bg-purple-50 rounded-lg">
+              <h4 className="font-bold">NS Record</h4>
+              <p className="text-sm">Nameserver information</p>
+              <p className="text-xs bg-white p-2 rounded mt-2 font-mono">ns1.registrar.com</p>
+            </div>
+          </div>
+          <div className="p-4 bg-red-50 rounded-lg">
+            <h4 className="font-bold">TXT Record</h4>
+            <p className="text-sm">Text information for various purposes:</p>
+            <ul className="text-sm mt-2">
+              <li>• SPF records for email</li>
+              <li>• Domain verification</li>
+              <li>• DKIM for email security</li>
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "Domain Registration Process",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <div className="flex items-center justify-around p-4 bg-blue-50 rounded-lg">
+            <div className="flex flex-col items-center">
+              <Search className="w-12 h-12 text-blue-500" />
+              <p className="text-sm mt-2">1. Choose Domain</p>
+            </div>
+            <div className="text-2xl">→</div>
+            <div className="flex flex-col items-center">
+              <Server className="w-12 h-12 text-green-500" />
+              <p className="text-sm mt-2">2. Register</p>
+            </div>
+            <div className="text-2xl">→</div>
+            <div className="flex flex-col items-center">
+              <Settings className="w-12 h-12 text-purple-500" />
+              <p className="text-sm mt-2">3. Configure</p>
+            </div>
+          </div>
+          <div className="space-y-3">
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold mb-2">Step 1: Choose Domain</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• Select available domain name</li>
+                <li>• Pick appropriate TLD</li>
+                <li>• Check pricing and terms</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold mb-2">Step 2: Register Domain</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• Choose registrar</li>
+                <li>• Provide contact information</li>
+                <li>• Complete purchase</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold mb-2">Step 3: Configure DNS</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• Set up DNS records</li>
+                <li>• Configure nameservers</li>
+                <li>• Verify settings</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "How DNS Lookup Works",
+      content: (
+        <div className="flex flex-col space-y-6">
           <div className="relative">
             <div className="flex justify-between items-center">
               <div className="text-center z-10">
-                <Home className="w-12 h-12 text-blue-500 mx-auto" />
-                <p>Your Device</p>
+                <Globe className="w-12 h-12 text-blue-500 mx-auto" />
+                <p className="text-sm">Browser</p>
               </div>
               <div className="text-center z-10">
-                <Database className="w-12 h-12 text-purple-500 mx-auto" />
-                <p>Local DNS</p>
+                <Database className="w-12 h-12 text-green-500 mx-auto" />
+                <p className="text-sm">Cache</p>
               </div>
               <div className="text-center z-10">
-                <Server className="w-12 h-12 text-green-500 mx-auto" />
-                <p>Root DNS</p>
+                <Network className="w-12 h-12 text-purple-500 mx-auto" />
+                <p className="text-sm">DNS Servers</p>
               </div>
               <div className="text-center z-10">
-                <Globe className="w-12 h-12 text-red-500 mx-auto" />
-                <p>Website</p>
+                <Server className="w-12 h-12 text-red-500 mx-auto" />
+                <p className="text-sm">Website</p>
               </div>
             </div>
             <div className="absolute top-6 w-full h-0.5 bg-gray-200"></div>
           </div>
-          <div className="space-y-4">
-            <div className="p-3 bg-blue-50 rounded">1. Your browser asks: "Where is google.com?"</div>
-            <div className="p-3 bg-purple-50 rounded">2. Local DNS checks its memory</div>
-            <div className="p-3 bg-green-50 rounded">3. If not found, asks root DNS servers</div>
-            <div className="p-3 bg-red-50 rounded">4. Gets the address and connects you!</div>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "DNS Caching: Speed Boost!",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="grid grid-cols-2 gap-6">
-            <div className="flex flex-col items-center">
-              <Clock className="w-16 h-16 text-orange-500" />
-              <h3 className="font-bold mt-2">First Visit</h3>
-              <div className="p-4 bg-orange-50 rounded-lg mt-2 w-full">
-                <p>1. Full DNS lookup</p>
-                <p>2. Save to cache</p>
-                <p>3. ~100-200ms</p>
-              </div>
+          <div className="space-y-3">
+            <div className="p-3 bg-blue-50 rounded-lg">
+              <p className="text-sm">1. Type URL → Check local cache</p>
             </div>
-            <div className="flex flex-col items-center">
-              <Zap className="w-16 h-16 text-green-500" />
-              <h3 className="font-bold mt-2">Return Visit</h3>
-              <div className="p-4 bg-green-50 rounded-lg mt-2 w-full">
-                <p>1. Check cache</p>
-                <p>2. Instant lookup</p>
-                <p>3. ~1ms</p>
-              </div>
+            <div className="p-3 bg-green-50 rounded-lg">
+              <p className="text-sm">2. Query DNS servers if not cached</p>
             </div>
-          </div>
-          <div className="text-sm bg-blue-100 p-4 rounded-lg">
-            💡 Like remembering a friend's address after visiting once!
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "DNS Security",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-red-50 rounded-lg">
-              <div className="flex items-center mb-2">
-                <AlertCircle className="w-6 h-6 text-red-500 mr-2" />
-                <p className="font-bold">Security Risks</p>
-              </div>
-              <ul className="space-y-2">
-                <li>• DNS Spoofing</li>
-                <li>• Cache Poisoning</li>
-                <li>• Man-in-the-Middle</li>
-              </ul>
+            <div className="p-3 bg-purple-50 rounded-lg">
+              <p className="text-sm">3. Get IP address → Cache result</p>
             </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <div className="flex items-center mb-2">
-                <Shield className="w-6 h-6 text-green-500 mr-2" />
-                <p className="font-bold">Protections</p>
-              </div>
-              <ul className="space-y-2">
-                <li>• DNSSEC</li>
-                <li>• DNS over HTTPS</li>
-                <li>• Regular Updates</li>
-              </ul>
+            <div className="p-3 bg-red-50 rounded-lg">
+              <p className="text-sm">4. Connect to website</p>
             </div>
-          </div>
-          <div className="text-sm bg-yellow-100 p-4 rounded-lg">
-            🔒 Like having a secure phone directory that can't be tampered with!
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "When DNS Goes Wrong",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-red-50 rounded-lg">
-              <div className="flex items-center mb-2">
-                <AlertCircle className="w-6 h-6 text-red-500 mr-2" />
-                <p className="font-bold">Common Issues</p>
-              </div>
-              <ul className="space-y-2">
-                <li>• DNS Server Down</li>
-                <li>• Outdated Cache</li>
-                <li>• Wrong DNS Settings</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <div className="flex items-center mb-2">
-                <MessageCircle className="w-6 h-6 text-green-500 mr-2" />
-                <p className="font-bold">Quick Fixes</p>
-              </div>
-              <ul className="space-y-2">
-                <li>• Clear Browser Cache</li>
-                <li>• Check Connection</li>
-                <li>• Try Different DNS</li>
-              </ul>
-            </div>
-          </div>
-          <div className="text-sm bg-blue-100 p-4 rounded-lg">
-            ❓ Share in chat: What DNS issues have you encountered?
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "Live Demo Time!",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="p-6 bg-blue-50 rounded-lg">
-            <h3 className="font-bold mb-4">Let's Look Up Some Domains!</h3>
-            <div className="space-y-4">
-              <p>We'll use these commands:</p>
-              <div className="bg-gray-800 text-white p-4 rounded font-mono">
-                <p>nslookup google.com</p>
-                <p>dig google.com</p>
-              </div>
-              <p className="text-sm italic">Watch as we see DNS in action!</p>
-            </div>
-          </div>
-          <div className="text-sm bg-yellow-100 p-4 rounded-lg">
-            🔍 What website should we look up together?
           </div>
         </div>
       )
@@ -208,27 +331,22 @@ const DNSMeetPresentation = () => {
     {
       title: "Key Takeaways",
       content: (
-        <div className="flex flex-col space-y-6">
-          <div className="space-y-4">
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <p className="font-bold">1. DNS is like a phone book</p>
-              <p className="text-sm">Converts names to numbers</p>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <p className="font-bold">2. It's hierarchical</p>
-              <p className="text-sm">Works like a tree of servers</p>
-            </div>
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <p className="font-bold">3. Caching speeds things up</p>
-              <p className="text-sm">Remember previous lookups</p>
-            </div>
-            <div className="p-4 bg-yellow-50 rounded-lg">
-              <p className="font-bold">4. Security is important</p>
-              <p className="text-sm">Protection against attacks</p>
-            </div>
+        <div className="flex flex-col space-y-4">
+          <div className="p-4 bg-blue-50 rounded-lg">
+            <h3 className="font-bold mb-2">DNS Purpose</h3>
+            <p className="text-sm">Converts domain names to IP addresses</p>
           </div>
-          <div className="text-sm bg-blue-100 p-4 rounded-lg">
-            🎯 Questions? Drop them in the chat!
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h3 className="font-bold mb-2">Infrastructure</h3>
+            <p className="text-sm">Registrars, operators, and servers work together</p>
+          </div>
+          <div className="p-4 bg-yellow-50 rounded-lg">
+            <h3 className="font-bold mb-2">Records</h3>
+            <p className="text-sm">Different types for different purposes</p>
+          </div>
+          <div className="p-4 bg-purple-50 rounded-lg">
+            <h3 className="font-bold mb-2">Process</h3>
+            <p className="text-sm">Hierarchical lookup system with caching</p>
           </div>
         </div>
       )
@@ -269,4 +387,4 @@ const DNSMeetPresentation = () => {
   );
 };
 
-export default DNSMeetPresentation;
+export default DNSPresentation;
