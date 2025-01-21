@@ -25,7 +25,7 @@ const DNSPresentation = () => {
           </div>
           <div className="bg-blue-50 p-4 rounded-lg text-center">
             <p className="text-xl">DNS: Domain Name System</p>
-            <p className="text-gray-600 mt-2">Like a contacts list that converts website names into IP addresses</p>
+            <p className="text-gray-600 mt-2">Like a contacts list (or phone book) that converts website names into IP addresses</p>
           </div>
         </div>
       )
@@ -37,9 +37,9 @@ const DNSPresentation = () => {
           <div className="p-4 bg-blue-50 rounded-lg">
             <h3 className="font-bold mb-2">Domain Names</h3>
             <ul className="space-y-2 text-sm">
-              <li>• TLD (.com)</li>
-              <li>• Domain (example)</li>
-              <li>• Subdomain (www)</li>
+              <li>• Top-level Domain (TLD)</li>
+              <li>• Domain</li>
+              <li>• Subdomain</li>
             </ul>
           </div>
           <div className="p-4 bg-green-50 rounded-lg">
@@ -53,9 +53,9 @@ const DNSPresentation = () => {
           <div className="p-4 bg-yellow-50 rounded-lg">
             <h3 className="font-bold mb-2">Records</h3>
             <ul className="space-y-2 text-sm">
-              <li>• A Records</li>
-              <li>• CNAME</li>
-              <li>• NS, MX, TXT</li>
+              <li>• A & CNAME Records</li>
+              <li>• NS Records</li>
+              <li>• Other Records (MX, TXT)</li>
             </ul>
           </div>
         </div>
@@ -68,7 +68,7 @@ const DNSPresentation = () => {
           <div className="p-6 bg-white rounded-lg border-2 border-gray-200">
             <div className="flex items-center justify-center space-x-1">
               <div className="px-3 py-2 bg-blue-100 rounded">
-                <p className="text-lg">blog</p>
+                <p className="text-lg">www</p>
                 <p className="text-xs text-gray-600">subdomain</p>
               </div>
               <div className="text-xl">.</div>
@@ -85,19 +85,19 @@ const DNSPresentation = () => {
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div className="p-3 bg-orange-50 rounded-lg">
-              <h3 className="font-bold mb-1">Top-level Domain</h3>
+              <h3 className="font-bold mb-1">Top-level Domain (TLD)</h3>
               <p className="text-sm">Generic: .com, .org, .net</p>
               <p className="text-sm">Country: .uk, .jp</p>
+              <p className="text-sm">Problematic: .zip</p>
             </div>
             <div className="p-3 bg-green-50 rounded-lg">
               <h3 className="font-bold mb-1">Domain</h3>
-              <p className="text-sm">Your unique identifier</p>
-              <p className="text-sm">Second-level domain</p>
+              <p className="text-sm">example, tailscale, google</p>
             </div>
             <div className="p-3 bg-blue-50 rounded-lg">
               <h3 className="font-bold mb-1">Subdomain</h3>
               <p className="text-sm">Optional prefix</p>
-              <p className="text-sm">e.g., www, blog, mail</p>
+              <p className="text-sm">Examples: www., blog., docs.</p>
             </div>
           </div>
         </div>
@@ -116,8 +116,8 @@ const DNSPresentation = () => {
               <ul className="space-y-2">
                 <li>• Sell domain names</li>
                 <li>• Manage domain registration</li>
-                <li>• Examples: GoDaddy, Porkbun</li>
                 <li>• Handle DNS configuration</li>
+                <li>• Examples: GoDaddy, Porkbun</li>
               </ul>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
@@ -127,9 +127,10 @@ const DNSPresentation = () => {
               </h3>
               <ul className="space-y-2">
                 <li>• Manage TLD databases</li>
-                <li>• VeriSign (.com, .net)</li>
-                <li>• Public Interest (.org)</li>
+
+                <li>• Propagate DNS settings</li>
                 <li>• Maintain DNS records</li>
+                <li>• Examples: VeriSign (.com, .net), Public Interest (.org)</li>
               </ul>
             </div>
           </div>
@@ -175,22 +176,24 @@ const DNSPresentation = () => {
         <div className="flex flex-col space-y-6">
           <div className="space-y-4">
             <div className="p-4 bg-purple-50 rounded-lg">
-              <h3 className="font-bold mb-2">Root Servers</h3>
-              <p className="text-sm">• 13 root server systems worldwide (a-m.root-servers.net)</p>
+              <h3 className="font-bold mb-2">Root Name Servers</h3>
+              <p className="text-sm">• 13 root server systems worldwide</p>
               <p className="text-sm">• Managed by 12 different organizations</p>
               <p className="text-sm">• Foundation of DNS hierarchy</p>
+              <p className="text-sm">• Returns TLD name server</p>
             </div>
             <div className="p-4 bg-blue-50 rounded-lg">
-              <h3 className="font-bold mb-2">TLD Servers</h3>
+              <h3 className="font-bold mb-2">TLD Name Servers</h3>
               <p className="text-sm">• Manage specific TLDs (.com, .org, etc.)</p>
               <p className="text-sm">• Operated by registry operators</p>
               <p className="text-sm">• Store NS records for domains</p>
+              <p className="text-sm">• Returns authoritative name server</p>
             </div>
             <div className="p-4 bg-green-50 rounded-lg">
               <h3 className="font-bold mb-2">Authoritative Name Servers</h3>
               <p className="text-sm">• Store actual DNS records</p>
               <p className="text-sm">• Managed by domain owners</p>
-              <p className="text-sm">• Provide final IP addresses</p>
+              <p className="text-sm">• Returns final IP addresses</p>
             </div>
           </div>
         </div>
@@ -229,9 +232,8 @@ const DNSPresentation = () => {
             <h4 className="font-bold">TXT Record</h4>
             <p className="text-sm">Text information for various purposes:</p>
             <ul className="text-sm mt-2">
-              <li>• SPF records for email</li>
-              <li>• Domain verification</li>
-              <li>• DKIM for email security</li>
+              <li>• Domain ownership verification</li>
+              <li>• Arbitrary information</li>
             </ul>
           </div>
         </div>
@@ -243,43 +245,43 @@ const DNSPresentation = () => {
         <div className="flex flex-col space-y-6">
           <div className="flex items-center justify-around p-4 bg-blue-50 rounded-lg">
             <div className="flex flex-col items-center">
-              <Search className="w-12 h-12 text-blue-500" />
-              <p className="text-sm mt-2">1. Choose Domain</p>
+              <Server className="w-12 h-12 text-blue-500" />
+              <p className="text-sm mt-2">1. Register</p>
             </div>
             <div className="text-2xl">→</div>
             <div className="flex flex-col items-center">
-              <Server className="w-12 h-12 text-green-500" />
-              <p className="text-sm mt-2">2. Register</p>
+              <Settings className="w-12 h-12 text-green-500" />
+              <p className="text-sm mt-2">2. Configure</p>
             </div>
             <div className="text-2xl">→</div>
             <div className="flex flex-col items-center">
-              <Settings className="w-12 h-12 text-purple-500" />
-              <p className="text-sm mt-2">3. Configure</p>
+              <Globe className="w-12 h-12 text-purple-500" />
+              <p className="text-sm mt-2">3. Propagate</p>
             </div>
           </div>
           <div className="space-y-3">
             <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">Step 1: Choose Domain</h3>
+              <h3 className="font-bold mb-2">Step 1: Register with Registrar</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Select available domain name</li>
-                <li>• Pick appropriate TLD</li>
-                <li>• Check pricing and terms</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">Step 2: Register Domain</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Choose registrar</li>
+                <li>• Choose a registrar (GoDaddy, Porkbun)</li>
+                <li>• Purchase domain name</li>
                 <li>• Provide contact information</li>
-                <li>• Complete purchase</li>
               </ul>
             </div>
             <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">Step 3: Configure DNS</h3>
+              <h3 className="font-bold mb-2">Step 2: Configure DNS Settings</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Set up DNS records</li>
-                <li>• Configure nameservers</li>
-                <li>• Verify settings</li>
+                <li>• Set up A records (IP addresses)</li>
+                <li>• Configure CNAME records (aliases)</li>
+                <li>• Set NS records (nameservers)</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold mb-2">Step 3: Registry Propagation</h3>
+              <ul className="space-y-2 text-sm">
+                <li>• Registry operator updates records</li>
+                <li>• Changes propagate through DNS</li>
+                <li>• Can take up to 48 hours</li>
               </ul>
             </div>
           </div>
@@ -302,7 +304,7 @@ const DNSPresentation = () => {
               </div>
               <div className="text-center z-10">
                 <Network className="w-12 h-12 text-purple-500 mx-auto" />
-                <p className="text-sm">DNS Servers</p>
+                <p className="text-sm">DNS Resolver</p>
               </div>
               <div className="text-center z-10">
                 <Server className="w-12 h-12 text-red-500 mx-auto" />
@@ -313,40 +315,78 @@ const DNSPresentation = () => {
           </div>
           <div className="space-y-3">
             <div className="p-3 bg-blue-50 rounded-lg">
-              <p className="text-sm">1. Type URL → Check local cache</p>
-            </div>
-            <div className="p-3 bg-green-50 rounded-lg">
-              <p className="text-sm">2. Query DNS servers if not cached</p>
+              <p className="text-sm font-semibold">1. Type URL into Browser</p>
+              <p className="text-xs text-gray-600 mt-1">Browser first checks local DNS cache</p>
+              <p className="text-xs text-gray-600 mt-1">If not in cache, start recursive DNS resolution</p>
             </div>
             <div className="p-3 bg-purple-50 rounded-lg">
-              <p className="text-sm">3. Get IP address → Cache result</p>
+              <p className="text-sm font-semibold">2. Recursive DNS Resolution</p>
+              <p className="text-xs text-gray-600 mt-1">The Recursive DNS Resolver Server starts working through the DNS server hierarchy</p>
+              <p className="text-xs text-gray-600 mt-1">Also called the public DNS resolver (a well known one is Google's DNS at 8.8.8.8)</p>
+              <div className="ml-4 mt-2 space-y-2">
+              <div className="p-3 bg-purple-50 rounded-lg">
+                <div className="flex items-center text-xs">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  Ask Root Server: "Who knows about .com?"
+                  → Returns TLD Name Server (.com)
+                </div>
+                <div className="flex items-center text-xs">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  Ask TLD Name Server: "Who knows about example.com?"
+                  → Returns Authoritative Name Server
+                </div>
+                <div className="flex items-center text-xs">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  Ask Authoritative Server: "What's example.com's IP?"
+                  → Returns IP address
+                </div>
+                <div className="flex items-center text-xs">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
+                  Get IP Address: 192.0.2.1
+                </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-3 bg-green-50 rounded-lg">
+              <p className="text-sm font-semibold">3. Cache the Result</p>
+              <p className="text-xs text-gray-600 mt-1">Store IP address of the URL locally for future requests</p>
             </div>
             <div className="p-3 bg-red-50 rounded-lg">
-              <p className="text-sm">4. Connect to website</p>
+              <p className="text-sm font-semibold">4. Connect to Website</p>
+              <p className="text-xs text-gray-600 mt-1">Browser uses IP address to access thewebsite</p>
             </div>
           </div>
         </div>
       )
     },
     {
-      title: "Key Takeaways",
+      title: "Summary",
       content: (
         <div className="flex flex-col space-y-4">
           <div className="p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-bold mb-2">DNS Purpose</h3>
-            <p className="text-sm">Converts domain names to IP addresses</p>
+            <h3 className="font-bold mb-2">Contacts list for the internet</h3>
+            <p className="text-sm">So you don't have to memorize IP addresses</p>
           </div>
           <div className="p-4 bg-green-50 rounded-lg">
-            <h3 className="font-bold mb-2">Infrastructure</h3>
-            <p className="text-sm">Registrars, operators, and servers work together</p>
+            <h3 className="font-bold mb-2">Parts of the Domain Name System</h3>
+            <p className="text-sm">• Domain names: subdomain.domain.TLD</p>
+            <p className="text-sm">• Infrastructure: Registrars, Registry Operators, Registrants, DNS Servers</p>
+            <p className="text-sm">• Records: A, CNAME, NS</p>
           </div>
           <div className="p-4 bg-yellow-50 rounded-lg">
-            <h3 className="font-bold mb-2">Records</h3>
-            <p className="text-sm">Different types for different purposes</p>
+            <h3 className="font-bold mb-2">DNS Server Hierarchy</h3>
+            <p className="text-sm">• Public DNS Resolver</p>
+            <p className="text-sm">• Root Name Server</p>
+            <p className="text-sm">• TLD Name Server</p>
+            <p className="text-sm">• Authoritative Name Server</p>
           </div>
           <div className="p-4 bg-purple-50 rounded-lg">
-            <h3 className="font-bold mb-2">Process</h3>
-            <p className="text-sm">Hierarchical lookup system with caching</p>
+            <h3 className="font-bold mb-2">DNS Lookup</h3>
+            <p className="text-sm">• Type domain name into browser</p>
+            <p className="text-sm">• Check local cache</p>
+            <p className="text-sm">• Recursive DNS resolution</p>
+            <p className="text-sm">• Cache IP address</p>
+            <p className="text-sm">• Use IP address to access website</p>
           </div>
         </div>
       )
