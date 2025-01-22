@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
+import { DNSExplainer } from '@/components/dns-explainer';
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -395,6 +396,14 @@ const DNSPresentation = () => {
               <p className="text-xs text-gray-600 mt-1">Browser uses IP address to access thewebsite</p>
             </div>
           </div>
+        </div>
+      )
+    },
+    {
+      title: "DNS Lookup Process",
+      content: (
+        <div className="flex flex-col space-y-4">
+          <DNSExplainer />
         </div>
       )
     },
