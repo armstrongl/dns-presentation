@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Globe, Search, Server, Database, FileText, Settings, User, Network } from 'lucide-react';
+import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -53,7 +53,8 @@ const DNSPresentation = () => {
           <div className="p-4 bg-yellow-50 rounded-lg">
             <h3 className="font-bold mb-2">Records</h3>
             <ul className="space-y-2 text-sm">
-              <li>• A & CNAME Records</li>
+              <li>• A & AAAA Records</li>
+              <li>• CNAME Records</li>
               <li>• NS Records</li>
               <li>• Other Records (MX, TXT)</li>
             </ul>
@@ -138,39 +139,6 @@ const DNSPresentation = () => {
       )
     },
     {
-      title: "Registrants (You!)",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="p-6 bg-blue-50 rounded-lg">
-            <div className="flex items-center justify-center mb-4">
-              <User className="w-16 h-16 text-blue-500" />
-            </div>
-            <h3 className="text-xl font-bold text-center mb-4">Domain Name Owner</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-3 bg-white rounded-lg">
-                <h4 className="font-bold mb-2">Rights</h4>
-                <ul className="space-y-2 text-sm">
-                  <li>• Control DNS settings</li>
-                  <li>• Manage subdomains</li>
-                  <li>• Transfer ownership</li>
-                  <li>• Configure records</li>
-                </ul>
-              </div>
-              <div className="p-3 bg-white rounded-lg">
-                <h4 className="font-bold mb-2">Responsibilities</h4>
-                <ul className="space-y-2 text-sm">
-                  <li>• Keep contact info updated</li>
-                  <li>• Renew registration</li>
-                  <li>• Follow ICANN rules</li>
-                  <li>• Maintain DNS records</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
       title: "DNS Servers Hierarchy",
       content: (
         <div className="flex flex-col space-y-6">
@@ -206,10 +174,12 @@ const DNSPresentation = () => {
           <div className="p-4 bg-blue-50 rounded-lg">
             <h3 className="font-bold mb-2 flex items-center">
               <FileText className="w-6 h-6 mr-2" />
-              A Record
+              A and AAAA Records
             </h3>
-            <p className="text-sm">Maps domain name to IPv4 address</p>
+            <p className="text-sm">A record maps a domain name to an IPv4 address</p>
             <p className="text-xs bg-white p-2 rounded mt-2 font-mono">example.com → 192.0.2.1</p>
+            <p className="text-sm"><br/>AAAA record maps a domain name to an IPv6 address</p>
+            <p className="text-xs bg-white p-2 rounded mt-2 font-mono">example.com → 2001:db8::</p>
           </div>
           <div className="p-4 bg-green-50 rounded-lg">
             <h3 className="font-bold mb-2">CNAME Record</h3>
@@ -234,6 +204,75 @@ const DNSPresentation = () => {
             <ul className="text-sm mt-2">
               <li>• Domain ownership verification</li>
               <li>• Arbitrary information</li>
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      title: "History of DNS",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="p-4 bg-yellow-50 rounded-lg">
+              <div className="flex items-center mb-2">
+                <Clock className="w-6 h-6 text-yellow-600 mr-2" />
+                <h3 className="font-bold">Early Days (1970s)</h3>
+              </div>
+              <ul className="space-y-2 text-sm">
+                <li>• ARPANET used HOSTS.TXT file</li>
+                <li>• Single file maintained at Stanford</li>
+                <li>• Manual updates and downloads</li>
+                <li>• Limited scalability</li>
+              </ul>
+            </div>
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <div className="flex items-center mb-2">
+                <History className="w-6 h-6 text-blue-600 mr-2" />
+                <h3 className="font-bold">DNS Creation (1983)</h3>
+              </div>
+              <ul className="space-y-2 text-sm">
+                <li>• Paul Mockapetris designs DNS</li>
+                <li>• Introduced distributed database</li>
+                <li>• Hierarchical naming system</li>
+                <li>• Automated name resolution</li>
+              </ul>
+            </div>
+          </div>
+          <div className="p-4 bg-green-50 rounded-lg">
+            <h3 className="font-bold mb-2">Key Developments</h3>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <div>
+                <p className="font-semibold">1984-1985</p>
+                <ul className="mt-1">
+                  <li>• First DNS server (named "Jeeves")</li>
+                  <li>• DNS fully implemented with the BIND package</li>
+                  <li>• .com TLD created</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold">1990s</p>
+                <ul className="mt-1">
+                  <li>• World Wide Web boom</li>
+                  <li>• DNS commercialization</li>
+                </ul>
+              </div>
+              <div>
+                <p className="font-semibold">2000s-Present</p>
+                <ul className="mt-1">
+                  <li>• DNSSEC 🌶</li>
+                  <li>• New TLDs introduced</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="p-4 bg-purple-50 rounded-lg">
+            <h3 className="font-bold mb-2">Impact and Legacy</h3>
+            <ul className="space-y-2 text-sm">
+              <li>• Enabled internet scalability (kind of)</li>
+              <li>• Foundation for modern web</li>
+              <li>• Still uses same core principles</li>
+              <li>• Continues to evolve and be used in ways that were never intended</li>
             </ul>
           </div>
         </div>
@@ -271,7 +310,7 @@ const DNSPresentation = () => {
             <div className="p-4 bg-white rounded-lg">
               <h3 className="font-bold mb-2">Step 2: Configure DNS Settings</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Set up A records (IP addresses)</li>
+                <li>• Set up A/AAAA records (IP addresses)</li>
                 <li>• Configure CNAME records (aliases)</li>
                 <li>• Set NS records (nameservers)</li>
               </ul>
