@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
 import { DNSExplainer } from '@/components/dns-explainer';
+import { DNSRecordsExplorer } from '@/components/records-explorer';
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -172,41 +173,7 @@ const DNSPresentation = () => {
       title: "DNS Records",
       content: (
         <div className="flex flex-col space-y-4">
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-bold mb-2 flex items-center">
-              <FileText className="w-6 h-6 mr-2" />
-              A and AAAA Records
-            </h3>
-            <p className="text-sm">A record maps a domain name to an IPv4 address</p>
-            <p className="text-xs bg-white p-2 rounded mt-2 font-mono">example.com → 192.0.2.1</p>
-            <p className="text-sm"><br/>AAAA record maps a domain name to an IPv6 address</p>
-            <p className="text-xs bg-white p-2 rounded mt-2 font-mono">example.com → 2001:db8::</p>
-          </div>
-          <div className="p-4 bg-green-50 rounded-lg">
-            <h3 className="font-bold mb-2">CNAME Record</h3>
-            <p className="text-sm">Creates an alias pointing to another domain</p>
-            <p className="text-xs bg-white p-2 rounded mt-2 font-mono">www.example.com → example.com</p>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-yellow-50 rounded-lg">
-              <h4 className="font-bold">MX Record</h4>
-              <p className="text-sm">Mail server settings</p>
-              <p className="text-xs bg-white p-2 rounded mt-2 font-mono">@ → mail.example.com</p>
-            </div>
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <h4 className="font-bold">NS Record</h4>
-              <p className="text-sm">Nameserver information</p>
-              <p className="text-xs bg-white p-2 rounded mt-2 font-mono">ns1.registrar.com</p>
-            </div>
-          </div>
-          <div className="p-4 bg-red-50 rounded-lg">
-            <h4 className="font-bold">TXT Record</h4>
-            <p className="text-sm">Text information for various purposes:</p>
-            <ul className="text-sm mt-2">
-              <li>• Domain ownership verification</li>
-              <li>• Arbitrary information</li>
-            </ul>
-          </div>
+          <DNSRecordsExplorer />
         </div>
       )
     },
