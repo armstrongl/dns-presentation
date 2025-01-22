@@ -6,13 +6,14 @@ import { Globe, Clock, History, Server, Database, FileText, Settings, Network } 
 import { DNSExplainer } from '@/components/dns-explainer';
 import { DNSRecordsExplorer } from '@/components/records-explorer';
 import FQDNHierarchy from "@/components/domain-name-anatomy";
+import DNSContacts from "@/components/contact-list";
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      title: "Understanding DNS: The Internet's Contact List",
+      title: "Understanding DNS",
       content: (
         <div className="flex flex-col space-y-6">
           <div className="flex items-center justify-center space-x-8">
@@ -30,6 +31,14 @@ const DNSPresentation = () => {
             <p className="text-xl">DNS: Domain Name System</p>
             <p className="text-gray-600 mt-2">Like a contacts list (or phone book) that converts website names into IP addresses</p>
           </div>
+        </div>
+      )
+    },
+    {
+      title: "Understanding DNS: The Internet's Contact List",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <DNSContacts />
         </div>
       )
     },
