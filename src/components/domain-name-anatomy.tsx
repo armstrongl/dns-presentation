@@ -1,9 +1,38 @@
 import React, { useState } from 'react';
 
-const FQDNHierarchy = () => {
+// Define a union type for valid domain part types
+type DomainPartType = 'tld' | 'domain' | 'subdomain';
+
+// Interface for individual domain parts
+interface DomainPart {
+  text: string;
+  type: DomainPartType;
+}
+
+// Interface for examples
+interface DomainExample {
+  parts: DomainPart[];
+}
+
+// Interface for detail information
+interface DetailInfo {
+  title: string;
+  examples: string[];
+  bgColor: string;
+  labelBg: string;
+}
+
+// Interface for the details object
+interface Details {
+  tld: DetailInfo;
+  domain: DetailInfo;
+  subdomain: DetailInfo;
+}
+
+export const DNAnatomy = () => {
   const [selectedExample, setSelectedExample] = useState(0);
 
-  const examples = [
+  const examples: DomainExample[] = [
     {
       parts: [
         { text: "www", type: "subdomain" },
@@ -27,7 +56,7 @@ const FQDNHierarchy = () => {
     }
   ];
 
-  const details = {
+  const details: Details = {
     tld: {
       title: "Top-level Domain (TLD)",
       examples: [
@@ -89,7 +118,7 @@ const FQDNHierarchy = () => {
 
       {/* Details Grid */}
       <div className="grid grid-cols-3 gap-4">
-        {Object.entries(details).map(([type, info]) => (
+        {(Object.entries(details) as [DomainPartType, DetailInfo][]).map(([type, info]) => (
           <div key={type} className={`p-3 ${info.bgColor} rounded-lg`}>
             <h3 className="font-bold mb-1">{info.title}</h3>
             {info.examples.map((example, index) => (
@@ -102,4 +131,4 @@ const FQDNHierarchy = () => {
   );
 };
 
-export default FQDNHierarchy;
+export default DNAnatomy;

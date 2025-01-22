@@ -1,22 +1,49 @@
 import React, { useState } from 'react';
 import { Server, Globe, FileText, Settings, ChevronDown } from 'lucide-react';
 
+// Define interfaces for our component types
+interface SectionItem {
+  title: string;
+  desc: string;
+}
+
+interface Section {
+  title: string;
+  icon: React.ElementType;
+  color: 'blue' | 'green' | 'purple' | 'orange';
+  items: SectionItem[];
+}
+
+interface Components {
+  [key: string]: Section;
+}
+
+interface ColorClasses {
+  bg: string;
+  border: string;
+  text: string;
+}
+
+interface OpenSections {
+  [key: string]: boolean;
+}
+
 export const DNSComponents = () => {
-  const [openSections, setOpenSections] = useState({
+  const [openSections, setOpenSections] = useState<OpenSections>({
     domains: false,
     infrastructure: false,
     records: false,
     management: false
   });
 
-  const toggleSection = (key) => {
+  const toggleSection = (key: string): void => {
     setOpenSections(prev => ({
       ...prev,
       [key]: !prev[key]
     }));
   };
 
-  const components = {
+  const components: Components = {
     domains: {
       title: "Domain Names",
       icon: Globe,
@@ -63,7 +90,7 @@ export const DNSComponents = () => {
     }
   };
 
-  const colorClasses = {
+  const colorClasses: Record<string, ColorClasses> = {
     blue: { bg: "bg-blue-50", border: "border-blue-200", text: "text-blue-800" },
     green: { bg: "bg-green-50", border: "border-green-200", text: "text-green-800" },
     purple: { bg: "bg-purple-50", border: "border-purple-200", text: "text-purple-800" },

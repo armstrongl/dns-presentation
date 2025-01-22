@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
 import { DNSExplainer } from '@/components/dns-lookup-process';
 import { DNSRecordsExplorer } from '@/components/records-explorer';
-import FQDNHierarchy from "@/components/domain-name-anatomy";
+import DNAnatomy from "@/components/domain-name-anatomy";
 import DNSContacts from "@/components/contact-list";
 import DNSIntro from "@/components/intro";
 
@@ -66,7 +66,7 @@ const DNSPresentation = () => {
       title: "Anatomy of a Domain Name",
       content: (
         <div className="flex flex-col space-y-6">
-          <FQDNHierarchy />
+          <DNAnatomy />
         </div>
       )
     },

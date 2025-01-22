@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Book, Globe, ArrowRight } from 'lucide-react';
 
 export const DNSContacts = () => {
-  const [hoveredPair, setHoveredPair] = useState(null);
+  const [hoveredPair, setHoveredPair] = useState<number | null>(null);
 
   const comparisons = [
     {
