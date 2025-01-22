@@ -7,6 +7,7 @@ import { DNSExplainer } from '@/components/dns-lookup-process';
 import { DNSRecordsExplorer } from '@/components/records-explorer';
 import FQDNHierarchy from "@/components/domain-name-anatomy";
 import DNSContacts from "@/components/contact-list";
+import DNSIntro from "@/components/intro";
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -16,21 +17,7 @@ const DNSPresentation = () => {
       title: "Understanding DNS",
       content: (
         <div className="flex flex-col space-y-6">
-          <div className="flex items-center justify-center space-x-8">
-            <div className="flex flex-col items-center">
-              <Globe className="w-16 h-16 text-blue-500" />
-              <p className="text-lg mt-2">example.com</p>
-            </div>
-            <div className="text-2xl">=</div>
-            <div className="flex flex-col items-center">
-              <Server className="w-16 h-16 text-green-500" />
-              <p className="text-lg mt-2">192.0.2.1</p>
-            </div>
-          </div>
-          <div className="bg-blue-50 p-4 rounded-lg text-center">
-            <p className="text-xl">DNS: Domain Name System</p>
-            <p className="text-gray-600 mt-2">Like a contacts list (or phone book) that converts website names into IP addresses</p>
-          </div>
+          <DNSIntro />
         </div>
       )
     },
