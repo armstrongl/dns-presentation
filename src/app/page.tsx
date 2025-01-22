@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
 import { DNSExplainer } from '@/components/dns-explainer';
 import { DNSRecordsExplorer } from '@/components/records-explorer';
+import FQDNHierarchy from "@/components/domain-name-anatomy";
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -64,45 +65,12 @@ const DNSPresentation = () => {
         </div>
       )
     },
+
     {
       title: "Anatomy of a Domain Name",
       content: (
         <div className="flex flex-col space-y-6">
-          <div className="p-6 bg-white rounded-lg border-2 border-gray-200">
-            <div className="flex items-center justify-center space-x-1">
-              <div className="px-3 py-2 bg-blue-100 rounded">
-                <p className="text-lg">www</p>
-                <p className="text-xs text-gray-600">subdomain</p>
-              </div>
-              <div className="text-xl">.</div>
-              <div className="px-3 py-2 bg-green-100 rounded">
-                <p className="text-lg">example</p>
-                <p className="text-xs text-gray-600">domain</p>
-              </div>
-              <div className="text-xl">.</div>
-              <div className="px-3 py-2 bg-orange-100 rounded">
-                <p className="text-lg">com</p>
-                <p className="text-xs text-gray-600">TLD</p>
-              </div>
-            </div>
-          </div>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="p-3 bg-orange-50 rounded-lg">
-              <h3 className="font-bold mb-1">Top-level Domain (TLD)</h3>
-              <p className="text-sm">Generic: .com, .org, .net</p>
-              <p className="text-sm">Country: .uk, .jp</p>
-              <p className="text-sm">Problematic: .zip</p>
-            </div>
-            <div className="p-3 bg-green-50 rounded-lg">
-              <h3 className="font-bold mb-1">Domain</h3>
-              <p className="text-sm">example, tailscale, google</p>
-            </div>
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <h3 className="font-bold mb-1">Subdomain</h3>
-              <p className="text-sm">Optional prefix</p>
-              <p className="text-sm">Examples: www., blog., docs.</p>
-            </div>
-          </div>
+          <FQDNHierarchy />
         </div>
       )
     },
