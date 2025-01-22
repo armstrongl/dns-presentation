@@ -403,8 +403,8 @@ const DNSPresentation = () => {
       content: (
         <div className="flex flex-col space-y-4">
           <div className="p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-bold mb-2">Contacts list for the internet</h3>
-            <p className="text-sm">So you don't have to memorize IP addresses</p>
+            <h3 className="font-bold mb-2">How DNS Works</h3>
+            <p className="text-sm">It's like a contacts list for the internet. So you don't have to memorize IP addresses</p>
           </div>
           <div className="p-4 bg-green-50 rounded-lg">
             <h3 className="font-bold mb-2">Parts of the Domain Name System</h3>
@@ -413,11 +413,11 @@ const DNSPresentation = () => {
             <p className="text-sm">• Records: A, CNAME, NS</p>
           </div>
           <div className="p-4 bg-yellow-50 rounded-lg">
-            <h3 className="font-bold mb-2">DNS Server Hierarchy</h3>
-            <p className="text-sm">• Public DNS Resolver</p>
-            <p className="text-sm">• Root Name Server</p>
-            <p className="text-sm">• TLD Name Server</p>
-            <p className="text-sm">• Authoritative Name Server</p>
+            <h3 className="font-bold mb-2">History</h3>
+            <p className="text-sm">• HOSTS.TXT</p>
+            <p className="text-sm">• "Jeeves"</p>
+            <p className="text-sm">• BIND package</p>
+            <p className="text-sm">• DNS today</p>
           </div>
           <div className="p-4 bg-purple-50 rounded-lg">
             <h3 className="font-bold mb-2">DNS Lookup</h3>
