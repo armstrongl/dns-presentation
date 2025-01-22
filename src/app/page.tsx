@@ -1,408 +1,325 @@
 'use client'
 
-import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
-import { DNSExplainer } from '@/components/dns-lookup-process';
-import { DNSRecordsExplorer } from '@/components/records-explorer';
-import DNAnatomy from "@/components/domain-name-anatomy";
-import DNSContacts from "@/components/contact-list";
-import DNSIntro from "@/components/intro";
+import React, { useState, useEffect } from 'react';
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Globe,
+  Search,
+  Server,
+  BookOpen,
+  Map,
+  AlertCircle,
+  RefreshCw,
+  Coffee
+} from 'lucide-react';
 
-const DNSPresentation = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+// Define our own icon component type
+type IconComponent = React.FC<{
+  className?: string;
+  size?: number;
+  color?: string;
+}>;
 
-  const slides = [
+interface ModernSlideProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+interface IconCardProps {
+  icon: IconComponent;
+  text: string;
+  className?: string;
+}
+
+interface Slide {
+  content: React.ReactNode;
+}
+
+const ModernSlide: React.FC<ModernSlideProps> = ({ children, className = "" }) => (
+  <div className={`flex flex-col items-center justify-center w-full h-full p-8 ${className}`}>
+    {children}
+  </div>
+);
+
+const IconCard: React.FC<IconCardProps> = ({ icon: Icon, text, className = "" }) => (
+  <Card className={`p-6 flex flex-col items-center justify-center transition-all hover:scale-105 ${className}`}>
+    <Icon className="w-12 h-12 mb-4" />
+    <div className="text-center text-sm">{text}</div>
+  </Card>
+);
+
+const DNSPresentation: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+
+  const slides: Slide[] = [
+    // Slide 1: Title
     {
-      title: "Understanding DNS",
       content: (
-        <div className="flex flex-col space-y-6">
-          <DNSIntro />
-        </div>
-      )
-    },
-    {
-      title: "Understanding DNS: The Internet's Contact List",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <DNSContacts />
-        </div>
-      )
-    },
-    {
-      title: "Parts of the Domain Name System: Overview",
-      content: (
-        <div className="grid grid-cols-3 gap-4">
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-bold mb-2">Domain Names</h3>
-            <ul className="space-y-2 text-sm">
-              <li>• Top-level Domain (TLD)</li>
-              <li>• Domain</li>
-              <li>• Subdomain</li>
-            </ul>
+        <ModernSlide>
+          <div className="text-6xl font-bold mb-8 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            DNS Explained
           </div>
-          <div className="p-4 bg-green-50 rounded-lg">
-            <h3 className="font-bold mb-2">Infrastructure</h3>
-            <ul className="space-y-2 text-sm">
-              <li>• Registrars</li>
-              <li>• Registry Operators</li>
-              <li>• DNS Servers</li>
-            </ul>
+          <div className="text-2xl text-gray-600 mb-12">
+            The Internet's Phone Book
           </div>
-          <div className="p-4 bg-yellow-50 rounded-lg">
-            <h3 className="font-bold mb-2">Records</h3>
-            <ul className="space-y-2 text-sm">
-              <li>• A & AAAA Records</li>
-              <li>• CNAME Records</li>
-              <li>• NS Records</li>
-              <li>• Other Records (MX, TXT)</li>
-            </ul>
+          <div className="grid grid-cols-3 gap-8">
+            <IconCard icon={Globe} text="Easy Names" />
+            <IconCard icon={Search} text="Quick Lookup" />
+            <IconCard icon={Server} text="Always Working" />
           </div>
-        </div>
+        </ModernSlide>
       )
     },
 
+    // Slide 2: The Problem
     {
-      title: "Anatomy of a Domain Name",
       content: (
-        <div className="flex flex-col space-y-6">
-          <DNAnatomy />
-        </div>
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-8">The Internet's Big Problem</div>
+          <div className="grid grid-cols-2 gap-12 mb-8">
+            <Card className="p-8 bg-gray-50">
+              <div className="text-xl mb-4">Computers Like:</div>
+              <div className="font-mono text-lg">142.251.16.100</div>
+            </Card>
+            <Card className="p-8 bg-gray-50">
+              <div className="text-xl mb-4">Humans Like:</div>
+              <div className="text-lg">google.com</div>
+            </Card>
+          </div>
+          <div className="text-xl text-gray-600">
+            How do we make both happy? 🤔
+          </div>
+        </ModernSlide>
       )
     },
-    {
-      title: "Registrars and Registry Operators",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="grid grid-cols-2 gap-6">
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <h3 className="font-bold mb-2 flex items-center">
-                <Server className="w-6 h-6 mr-2" />
-                Registrars
-              </h3>
-              <ul className="space-y-2">
-                <li>• Sell domain names</li>
-                <li>• Manage domain registration</li>
-                <li>• Handle DNS configuration</li>
-                <li>• Examples: GoDaddy, Porkbun</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <h3 className="font-bold mb-2 flex items-center">
-                <Database className="w-6 h-6 mr-2" />
-                Registry Operators
-              </h3>
-              <ul className="space-y-2">
-                <li>• Manage TLD databases</li>
 
-                <li>• Propagate DNS settings</li>
-                <li>• Maintain DNS records</li>
-                <li>• Examples: VeriSign (.com, .net), Public Interest (.org)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      )
-    },
+    // Slide 3: The Solution
     {
-      title: "DNS Servers Hierarchy",
       content: (
-        <div className="flex flex-col space-y-6">
-          <div className="space-y-4">
-            <div className="p-4 bg-purple-50 rounded-lg">
-              <h3 className="font-bold mb-2">Root Name Servers</h3>
-              <p className="text-sm">• 13 root server systems worldwide</p>
-              <p className="text-sm">• Managed by 12 different organizations</p>
-              <p className="text-sm">• Foundation of DNS hierarchy</p>
-              <p className="text-sm">• Returns TLD name server</p>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <h3 className="font-bold mb-2">TLD Name Servers</h3>
-              <p className="text-sm">• Manage specific TLDs (.com, .org, etc.)</p>
-              <p className="text-sm">• Operated by registry operators</p>
-              <p className="text-sm">• Store NS records for domains</p>
-              <p className="text-sm">• Returns authoritative name server</p>
-            </div>
-            <div className="p-4 bg-green-50 rounded-lg">
-              <h3 className="font-bold mb-2">Authoritative Name Servers</h3>
-              <p className="text-sm">• Store actual DNS records</p>
-              <p className="text-sm">• Managed by domain owners</p>
-              <p className="text-sm">• Returns final IP addresses</p>
-            </div>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "DNS Records",
-      content: (
-        <div className="flex flex-col space-y-4">
-          <DNSRecordsExplorer />
-        </div>
-      )
-    },
-    {
-      title: "History of DNS",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 bg-yellow-50 rounded-lg">
-              <div className="flex items-center mb-2">
-                <Clock className="w-6 h-6 text-yellow-600 mr-2" />
-                <h3 className="font-bold">Early Days (1970s)</h3>
-              </div>
-              <ul className="space-y-2 text-sm">
-                <li>• ARPANET used HOSTS.TXT file</li>
-                <li>• Single file maintained at Stanford</li>
-                <li>• Manual updates and downloads</li>
-                <li>• Limited scalability</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <div className="flex items-center mb-2">
-                <History className="w-6 h-6 text-blue-600 mr-2" />
-                <h3 className="font-bold">DNS Creation (1983)</h3>
-              </div>
-              <ul className="space-y-2 text-sm">
-                <li>• Paul Mockapetris designs DNS</li>
-                <li>• Introduced distributed database</li>
-                <li>• Hierarchical naming system</li>
-                <li>• Automated name resolution</li>
-              </ul>
-            </div>
-          </div>
-          <div className="p-4 bg-green-50 rounded-lg">
-            <h3 className="font-bold mb-2">Key Developments</h3>
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <div>
-                <p className="font-semibold">1984-1985</p>
-                <ul className="mt-1">
-                  <li>• First DNS server (named "Jeeves")</li>
-                  <li>• DNS fully implemented with the BIND package</li>
-                  <li>• .com TLD created</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold">1990s</p>
-                <ul className="mt-1">
-                  <li>• World Wide Web boom</li>
-                  <li>• DNS commercialization</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold">2000s-Present</p>
-                <ul className="mt-1">
-                  <li>• DNSSEC 🌶</li>
-                  <li>• New TLDs introduced</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 bg-purple-50 rounded-lg">
-            <h3 className="font-bold mb-2">Impact and Legacy</h3>
-            <ul className="space-y-2 text-sm">
-              <li>• Enabled internet scalability (kind of)</li>
-              <li>• Foundation for modern web</li>
-              <li>• Still uses same core principles</li>
-              <li>• Continues to evolve and be used in ways that were never intended</li>
-            </ul>
-          </div>
-        </div>
-      )
-    },
-    {
-      title: "Domain Registration Process",
-      content: (
-        <div className="flex flex-col space-y-6">
-          <div className="flex items-center justify-around p-4 bg-blue-50 rounded-lg">
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-12">Enter DNS: The Translator</div>
+          <div className="flex items-center justify-center space-x-6">
+            <Card className="p-6 bg-blue-50">
+              <div className="text-xl">google.com</div>
+            </Card>
             <div className="flex flex-col items-center">
-              <Server className="w-12 h-12 text-blue-500" />
-              <p className="text-sm mt-2">1. Register</p>
+              <RefreshCw className="w-8 h-8 text-blue-500 animate-spin" />
+              <div className="text-sm mt-2">DNS Magic</div>
             </div>
-            <div className="text-2xl">→</div>
-            <div className="flex flex-col items-center">
-              <Settings className="w-12 h-12 text-green-500" />
-              <p className="text-sm mt-2">2. Configure</p>
-            </div>
-            <div className="text-2xl">→</div>
-            <div className="flex flex-col items-center">
-              <Globe className="w-12 h-12 text-purple-500" />
-              <p className="text-sm mt-2">3. Propagate</p>
-            </div>
+            <Card className="p-6 bg-green-50">
+              <div className="font-mono text-xl">142.251.16.100</div>
+            </Card>
           </div>
-          <div className="space-y-3">
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">Step 1: Register with Registrar</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Choose a registrar (GoDaddy, Porkbun)</li>
-                <li>• Purchase domain name</li>
-                <li>• Provide contact information</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">Step 2: Configure DNS Settings</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Set up A/AAAA records (IP addresses)</li>
-                <li>• Configure CNAME records (aliases)</li>
-                <li>• Set NS records (nameservers)</li>
-              </ul>
-            </div>
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold mb-2">Step 3: Registry Propagation</h3>
-              <ul className="space-y-2 text-sm">
-                <li>• Registry operator updates records</li>
-                <li>• Changes propagate through DNS</li>
-                <li>• Can take up to 48 hours</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        </ModernSlide>
       )
     },
+
+    // Slide 4: Phone Book Analogy
     {
-      title: "How DNS Lookup Works",
       content: (
-        <div className="flex flex-col space-y-6">
-          <div className="relative">
-            <div className="flex justify-between items-center">
-              <div className="text-center z-10">
-                <Globe className="w-12 h-12 text-blue-500 mx-auto" />
-                <p className="text-sm">Browser</p>
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-8">Just Like a Phone Book!</div>
+          <div className="grid grid-cols-2 gap-12 w-full max-w-3xl">
+            <Card className="p-8 bg-yellow-50">
+              <div className="text-center">
+                <BookOpen className="w-16 h-16 mx-auto mb-4 text-yellow-600" />
+                <div className="text-lg mb-2">Phone Book</div>
+                <div className="text-sm text-gray-600">
+                  Name → Phone Number
+                </div>
               </div>
-              <div className="text-center z-10">
-                <Database className="w-12 h-12 text-green-500 mx-auto" />
-                <p className="text-sm">Cache</p>
+            </Card>
+            <Card className="p-8 bg-blue-50">
+              <div className="text-center">
+                <Server className="w-16 h-16 mx-auto mb-4 text-blue-600" />
+                <div className="text-lg mb-2">DNS</div>
+                <div className="text-sm text-gray-600">
+                  Website → IP Address
+                </div>
               </div>
-              <div className="text-center z-10">
-                <Network className="w-12 h-12 text-purple-500 mx-auto" />
-                <p className="text-sm">DNS Resolver</p>
-              </div>
-              <div className="text-center z-10">
-                <Server className="w-12 h-12 text-red-500 mx-auto" />
-                <p className="text-sm">Website</p>
-              </div>
-            </div>
-            <div className="absolute top-6 w-full h-0.5 bg-gray-200"></div>
+            </Card>
           </div>
-          <div className="space-y-3">
-            <div className="p-3 bg-blue-50 rounded-lg">
-              <p className="text-sm font-semibold">1. Type URL into Browser</p>
-              <p className="text-xs text-gray-600 mt-1">Browser first checks local DNS cache</p>
-              <p className="text-xs text-gray-600 mt-1">If not in cache, start recursive DNS resolution</p>
-            </div>
-            <div className="p-3 bg-purple-50 rounded-lg">
-              <p className="text-sm font-semibold">2. Recursive DNS Resolution</p>
-              <p className="text-xs text-gray-600 mt-1">The Recursive DNS Resolver Server starts working through the DNS server hierarchy</p>
-              <p className="text-xs text-gray-600 mt-1">Also called the public DNS resolver (a well known one is Google's DNS at 8.8.8.8)</p>
-              <div className="ml-4 mt-2 space-y-2">
-              <div className="p-3 bg-purple-50 rounded-lg">
-                <div className="flex items-center text-xs">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
-                  Ask Root Server: "Who knows about .com?"
-                  → Returns TLD Name Server (.com)
-                </div>
-                <div className="flex items-center text-xs">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
-                  Ask TLD Name Server: "Who knows about example.com?"
-                  → Returns Authoritative Name Server
-                </div>
-                <div className="flex items-center text-xs">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
-                  Ask Authoritative Server: "What's example.com's IP?"
-                  → Returns IP address
-                </div>
-                <div className="flex items-center text-xs">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>
-                  Get IP Address: 192.0.2.1
-                </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-3 bg-green-50 rounded-lg">
-              <p className="text-sm font-semibold">3. Cache the Result</p>
-              <p className="text-xs text-gray-600 mt-1">Store IP address of the URL locally for future requests</p>
-            </div>
-            <div className="p-3 bg-red-50 rounded-lg">
-              <p className="text-sm font-semibold">4. Connect to Website</p>
-              <p className="text-xs text-gray-600 mt-1">Browser uses IP address to access thewebsite</p>
-            </div>
-          </div>
-        </div>
+        </ModernSlide>
       )
     },
+
+    // Slide 5: How It Works
     {
-      title: "DNS Lookup Process",
       content: (
-        <div className="flex flex-col space-y-4">
-          <DNSExplainer />
-        </div>
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-12">How DNS Works</div>
+          <div className="flex items-center justify-center space-x-4">
+            <IconCard icon={Globe} text="You type google.com" />
+            <ChevronRight className="w-6 h-6" />
+            <IconCard icon={Search} text="DNS looks it up" />
+            <ChevronRight className="w-6 h-6" />
+            <IconCard icon={Map} text="Finds the address" />
+            <ChevronRight className="w-6 h-6" />
+            <IconCard icon={Coffee} text="You get your website!" />
+          </div>
+        </ModernSlide>
       )
     },
+
+    // Slide 6: DNS Problems
     {
-      title: "Summary",
       content: (
-        <div className="flex flex-col space-y-4">
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <h3 className="font-bold mb-2">How DNS Works</h3>
-            <p className="text-sm">It's like a contacts list for the internet. So you don't have to memorize IP addresses</p>
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-8">When DNS Gets Confused</div>
+          <div className="grid grid-cols-2 gap-8 mb-8">
+            <Card className="p-6 bg-red-50">
+              <div className="text-center">
+                <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+                <div className="text-lg mb-2">"Website Not Found"</div>
+                <div className="text-sm text-gray-600">
+                  The phone book is lost!
+                </div>
+              </div>
+            </Card>
+            <Card className="p-6 bg-green-50">
+              <div className="text-center">
+                <RefreshCw className="w-12 h-12 text-green-500 mx-auto mb-4" />
+                <div className="text-lg mb-2">Quick Fix</div>
+                <div className="text-sm text-gray-600">
+                  Just try again in a minute!
+                </div>
+              </div>
+            </Card>
           </div>
-          <div className="p-4 bg-green-50 rounded-lg">
-            <h3 className="font-bold mb-2">Parts of the Domain Name System</h3>
-            <p className="text-sm">• Domain names: subdomain.domain.TLD</p>
-            <p className="text-sm">• Infrastructure: Registrars, Registry Operators, Registrants, DNS Servers</p>
-            <p className="text-sm">• Records: A, CNAME, NS</p>
+        </ModernSlide>
+      )
+    },
+
+    // Slide 7: Why It Matters
+    {
+      content: (
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-8">Why DNS Matters</div>
+          <div className="grid grid-cols-3 gap-6 mb-8">
+            <Card className="p-6">
+              <div className="text-center">
+                <div className="text-4xl mb-4">🧠</div>
+                <div className="text-sm">
+                  Easy to Remember Names
+                </div>
+              </div>
+            </Card>
+            <Card className="p-6">
+              <div className="text-center">
+                <div className="text-4xl mb-4">⚡️</div>
+                <div className="text-sm">
+                  Super Fast Loading
+                </div>
+              </div>
+            </Card>
+            <Card className="p-6">
+              <div className="text-center">
+                <div className="text-4xl mb-4">🔄</div>
+                <div className="text-sm">
+                  Always Up to Date
+                </div>
+              </div>
+            </Card>
           </div>
-          <div className="p-4 bg-yellow-50 rounded-lg">
-            <h3 className="font-bold mb-2">History</h3>
-            <p className="text-sm">• HOSTS.TXT</p>
-            <p className="text-sm">• "Jeeves"</p>
-            <p className="text-sm">• BIND package</p>
-            <p className="text-sm">• DNS today</p>
+        </ModernSlide>
+      )
+    },
+
+    // Slide 8: Summary
+    {
+      content: (
+        <ModernSlide>
+          <div className="text-3xl font-bold mb-8">Remember...</div>
+          <div className="space-y-6 text-xl max-w-2xl text-center">
+            <Card className="p-4 bg-blue-50">
+              DNS is like a magical phone book for the internet
+            </Card>
+            <Card className="p-4 bg-green-50">
+              It turns website names into computer addresses
+            </Card>
+            <Card className="p-4 bg-yellow-50">
+              Without it, we'd have to remember long numbers!
+            </Card>
           </div>
-          <div className="p-4 bg-purple-50 rounded-lg">
-            <h3 className="font-bold mb-2">DNS Lookup</h3>
-            <p className="text-sm">• Type domain name into browser</p>
-            <p className="text-sm">• Check local cache</p>
-            <p className="text-sm">• Recursive DNS resolution</p>
-            <p className="text-sm">• Cache IP address</p>
-            <p className="text-sm">• Use IP address to access website</p>
-          </div>
-        </div>
+        </ModernSlide>
       )
     }
   ];
 
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent): void => {
+      if (event.key === 'ArrowRight') {
+        nextSlide();
+      } else if (event.key === 'ArrowLeft') {
+        previousSlide();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [currentSlide]);
+
+  const nextSlide = (): void => {
+    if (currentSlide < slides.length - 1) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentSlide(currentSlide + 1);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+
+  const previousSlide = (): void => {
+    if (currentSlide > 0) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentSlide(currentSlide - 1);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+
   return (
-    <Card className="w-full max-w-4xl mx-auto">
-      <CardContent className="p-6">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">{slides[currentSlide].title}</h2>
-          <p className="text-sm text-gray-500">Slide {currentSlide + 1} of {slides.length}</p>
-        </div>
-
-        {slides[currentSlide].content}
-
-        <div className="flex justify-between mt-8">
-          <button
-            onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
-            className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+      <Card className="max-w-5xl mx-auto p-8 shadow-lg">
+        <div className="flex justify-between items-center mb-8">
+          <Button
+            variant="outline"
+            onClick={previousSlide}
             disabled={currentSlide === 0}
+            className="w-12 h-12 rounded-full p-0"
           >
-            Previous
-          </button>
-          <div className="text-sm text-gray-500">
-            {`Slide ${currentSlide + 1} of ${slides.length}`}
+            <ChevronLeft className="w-6 h-6" />
+          </Button>
+          <div className="flex space-x-2">
+            {slides.map((_, index) => (
+              <div
+                key={index}
+                className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                  index === currentSlide ? 'bg-blue-500' : 'bg-gray-300'
+                }`}
+              />
+            ))}
           </div>
-          <button
-            onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
-            className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+          <Button
+            variant="outline"
+            onClick={nextSlide}
             disabled={currentSlide === slides.length - 1}
+            className="w-12 h-12 rounded-full p-0"
           >
-            Next
-          </button>
+            <ChevronRight className="w-6 h-6" />
+          </Button>
         </div>
-      </CardContent>
-    </Card>
+
+        <div className={`transition-all duration-300 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+          {slides[currentSlide].content}
+        </div>
+      </Card>
+    </div>
   );
 };
 
