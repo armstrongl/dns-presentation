@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Globe, Clock, History, Server, Database, FileText, Settings, Network } from 'lucide-react';
+import { Globe, Clock, History, Server, Database, Settings, Network } from 'lucide-react';
 import { DNSExplainer } from '@/components/dns-lookup-process';
 import { DNSRecordsExplorer } from '@/components/records-explorer';
 import DNAnatomy from "@/components/domain-name-anatomy";

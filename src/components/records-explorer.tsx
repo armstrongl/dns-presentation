@@ -55,48 +55,89 @@ export const DNSRecordsExplorer = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <div className="flex flex-wrap gap-2 mb-6 justify-center">
-        {Object.keys(records).map((recordType) => (
-          <button
-            key={recordType}
-            onClick={() => setSelectedRecord(recordType)}
-            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
-              selectedRecord === recordType
-                ? `${records[recordType].colorClass} ${records[recordType].iconColorClass}`
-                : 'bg-gray-100 hover:bg-gray-200'
-            }`}
-          >
-            {recordType}
-          </button>
-        ))}
-      </div>
+    <div className="p-4 sm:p-6 max-w-4xl mx-auto">
+      {/* Mobile Design */}
+      <div className="block sm:hidden">
+        {/* Vertical Button Stack */}
+        <div className="space-y-2 mb-6">
+          {Object.keys(records).map((recordType) => (
+            <button
+              key={recordType}
+              onClick={() => setSelectedRecord(recordType)}
+              className={`w-full px-4 py-3 rounded-lg font-semibold transition-colors text-left ${
+                selectedRecord === recordType
+                  ? `${records[recordType].colorClass} ${records[recordType].iconColorClass}`
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
+            >
+              {recordType} Record
+            </button>
+          ))}
+        </div>
 
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="flex items-start gap-4">
-          <div className={`p-3 rounded-lg ${records[selectedRecord].colorClass}`}>
+        {/* Record Details */}
+        <div className={`${records[selectedRecord].colorClass} rounded-lg p-4`}>
+          <div className="flex items-center gap-3 mb-3">
             <Database className={records[selectedRecord].iconColorClass} size={24} />
+            <h3 className="text-lg font-semibold">{selectedRecord} Record</h3>
           </div>
-          <div className="flex-1">
-            <h3 className="text-xl font-semibold mb-2">{selectedRecord} Record</h3>
-            <p className="text-gray-600 mb-4">{records[selectedRecord].description}</p>
+          <p className="text-gray-600 text-sm mb-4">{records[selectedRecord].description}</p>
 
-            <div className="bg-gray-50 p-4 rounded-lg mb-4 font-mono text-sm">
-              {records[selectedRecord].example}
-            </div>
+          <div className="bg-white bg-opacity-50 p-3 rounded-lg mb-4 font-mono text-xs overflow-x-auto">
+            {records[selectedRecord].example}
+          </div>
 
-            <div className="flex items-start gap-2 text-gray-600">
-              <Info size={20} className="mt-1 flex-shrink-0" />
-              <p>{records[selectedRecord].explanation}</p>
-            </div>
+          <div className="flex items-start gap-2 text-gray-600 text-sm">
+            <Info size={16} className="mt-1 flex-shrink-0" />
+            <p>{records[selectedRecord].explanation}</p>
           </div>
         </div>
       </div>
 
-      <div className={`mt-6 ${records[selectedRecord].colorClass} p-4 rounded-lg`}>
-        <p className={`text-sm ${records[selectedRecord].iconColorClass}`}>
-          Select different record types above to explore their purposes and formats.
-        </p>
+      {/* Desktop Design */}
+      <div className="hidden sm:block">
+        <div className="flex flex-wrap gap-2 mb-6 justify-center">
+          {Object.keys(records).map((recordType) => (
+            <button
+              key={recordType}
+              onClick={() => setSelectedRecord(recordType)}
+              className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                selectedRecord === recordType
+                  ? `${records[recordType].colorClass} ${records[recordType].iconColorClass}`
+                  : 'bg-gray-100 hover:bg-gray-200'
+              }`}
+            >
+              {recordType}
+            </button>
+          ))}
+        </div>
+
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="flex items-start gap-4">
+            <div className={`p-3 rounded-lg ${records[selectedRecord].colorClass}`}>
+              <Database className={records[selectedRecord].iconColorClass} size={24} />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold mb-2">{selectedRecord} Record</h3>
+              <p className="text-gray-600 mb-4">{records[selectedRecord].description}</p>
+
+              <div className="bg-gray-50 p-4 rounded-lg mb-4 font-mono text-sm">
+                {records[selectedRecord].example}
+              </div>
+
+              <div className="flex items-start gap-2 text-gray-600">
+                <Info size={20} className="mt-1 flex-shrink-0" />
+                <p>{records[selectedRecord].explanation}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className={`mt-6 ${records[selectedRecord].colorClass} p-4 rounded-lg`}>
+          <p className={`text-sm ${records[selectedRecord].iconColorClass}`}>
+            Select different record types above to explore their purposes and formats.
+          </p>
+        </div>
       </div>
     </div>
   );
