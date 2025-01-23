@@ -23,7 +23,7 @@ export const DNSExplainer = () => {
       },
       {
         title: "3. DNS Resolver",
-        description: "If not in cache, local DNS resolver receives the query",
+        description: "If not in cache, local DNS resolver (such as 8.8.8.8) receives the query",
         icon: Search,
         bgColor: "bg-orange-50",
         activeColor: "bg-orange-600",
@@ -31,7 +31,7 @@ export const DNSExplainer = () => {
       },
       {
         title: "4. Root Server",
-        description: "Asks root server for .com nameservers",
+        description: "DNS resolver asks root server for .com nameservers",
         icon: Database,
         bgColor: "bg-yellow-50",
         activeColor: "bg-yellow-600",
