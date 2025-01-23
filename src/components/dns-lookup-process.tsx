@@ -59,6 +59,10 @@ export const DNSExplainer = () => {
       setCurrentStep((prev) => (prev < steps.length - 1 ? prev + 1 : 0));
     };
 
+    const handlePrevious = () => {
+      setCurrentStep((prev) => (prev > 0 ? prev - 1 : steps.length - 1));
+    };
+
     return (
       <div className="p-6 max-w-4xl mx-auto">
         {/* Animation Stage */}
@@ -107,8 +111,14 @@ export const DNSExplainer = () => {
           <p className="text-gray-600">{steps[currentStep].description}</p>
         </div>
 
-        {/* Control Button */}
-        <div className="text-center">
+        {/* Control Buttons */}
+        <div className="text-center space-x-4">
+          <button
+            onClick={handlePrevious}
+            className={`${steps[currentStep].activeColor} text-white px-6 py-2 rounded-lg hover:opacity-90 transition-colors`}
+          >
+            Previous Step
+          </button>
           <button
             onClick={handleNext}
             className={`${steps[currentStep].activeColor} text-white px-6 py-2 rounded-lg hover:opacity-90 transition-colors`}
