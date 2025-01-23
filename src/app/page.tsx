@@ -8,6 +8,7 @@ import { DNSRecordsExplorer } from '@/components/records-explorer';
 import DNAnatomy from "@/components/domain-name-anatomy";
 import DNSContacts from "@/components/contact-list";
 import DNSIntro from "@/components/intro";
+import MagicDNSExplainer from "@/components/tailscale-magicdns-split";
 
 const DNSPresentation = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -335,6 +336,14 @@ const DNSPresentation = () => {
       content: (
         <div className="flex flex-col space-y-4">
           <DNSExplainer />
+        </div>
+      )
+    },
+    {
+      title: "MagicDNS Lookup Process",
+      content: (
+        <div className="flex flex-col space-y-6">
+          <MagicDNSExplainer />
         </div>
       )
     },
