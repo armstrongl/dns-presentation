@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DNS Presentation",
-  description: "Learn about the basics of DNS",
+  title: "DNS and Tailscale",
+  description: "How DNS works in Tailscale",
 };
 
 export default function RootLayout({
