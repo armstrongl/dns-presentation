@@ -21,36 +21,36 @@ export const DNSRecordsExplorer = () => {
       description: "Maps a domain to an IPv4 address",
       example: "example.com.  IN  A  93.184.216.34",
       explanation: "Points your domain directly to a server's IP address",
-      colorClass: "bg-blue-50",
-      iconColorClass: "text-blue-600"
+      colorClass: "bg-ts-blue-50",
+      iconColorClass: "text-ts-blue-300"
     },
     AAAA: {
       description: "Maps a domain to an IPv6 address",
       example: "example.com.  IN  AAAA  2606:2800:220:1:248:1893:25c8:1946",
       explanation: "Similar to A record but for newer IPv6 addresses",
-      colorClass: "bg-green-50",
-      iconColorClass: "text-green-600"
+      colorClass: "bg-ts-green-50",
+      iconColorClass: "text-ts-green-300"
     },
     CNAME: {
       description: "Creates an alias for another domain name",
       example: "www.example.com.  IN  CNAME  example.com.",
       explanation: "Useful for subdomains that point to the same IP as main domain",
-      colorClass: "bg-orange-50",
-      iconColorClass: "text-orange-600"
+      colorClass: "bg-ts-orange-50",
+      iconColorClass: "text-ts-orange-300"
     },
     MX: {
       description: "Specifies mail servers for the domain",
       example: "example.com.  IN  MX  10  mail.example.com.",
       explanation: "Required for email delivery to your domain",
-      colorClass: "bg-yellow-50",
-      iconColorClass: "text-yellow-600"
+      colorClass: "bg-ts-purple-50",
+      iconColorClass: "text-ts-purple-300"
     },
     TXT: {
       description: "Holds text information",
       example: "example.com.  IN  TXT \"v=spf1 include:_spf.example.com ~all\"",
       explanation: "Often used for domain verification and email security",
-      colorClass: "bg-purple-50",
-      iconColorClass: "text-purple-600"
+      colorClass: "bg-ts-red-50",
+      iconColorClass: "text-ts-red-300"
     }
   };
 
@@ -67,7 +67,7 @@ export const DNSRecordsExplorer = () => {
               className={`w-full px-4 py-3 rounded-lg font-semibold transition-colors text-left ${
                 selectedRecord === recordType
                   ? `${records[recordType].colorClass} ${records[recordType].iconColorClass}`
-                  : 'bg-gray-100 hover:bg-gray-200'
+                  : 'bg-ts-grey-100 hover:bg-ts-grey-200'
               }`}
             >
               {recordType} Record
@@ -81,13 +81,13 @@ export const DNSRecordsExplorer = () => {
             <Database className={records[selectedRecord].iconColorClass} size={24} />
             <h3 className="text-lg font-semibold">{selectedRecord} Record</h3>
           </div>
-          <p className="text-gray-600 text-sm mb-4">{records[selectedRecord].description}</p>
+          <p className="text-ts-grey-400 text-sm mb-4">{records[selectedRecord].description}</p>
 
-          <div className="bg-white bg-opacity-50 p-3 rounded-lg mb-4 font-mono text-xs overflow-x-auto">
+          <div className="bg-ts-grey-50 p-3 rounded-lg mb-4 font-mono text-xs overflow-x-auto">
             {records[selectedRecord].example}
           </div>
 
-          <div className="flex items-start gap-2 text-gray-600 text-sm">
+          <div className="flex items-start gap-2 text-ts-grey-400 text-sm">
             <Info size={16} className="mt-1 flex-shrink-0" />
             <p>{records[selectedRecord].explanation}</p>
           </div>
@@ -104,7 +104,7 @@ export const DNSRecordsExplorer = () => {
               className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
                 selectedRecord === recordType
                   ? `${records[recordType].colorClass} ${records[recordType].iconColorClass}`
-                  : 'bg-gray-100 hover:bg-gray-200'
+                  : 'bg-ts-grey-100 hover:bg-ts-grey-200'
               }`}
             >
               {recordType}
@@ -119,13 +119,13 @@ export const DNSRecordsExplorer = () => {
             </div>
             <div className="flex-1">
               <h3 className="text-xl font-semibold mb-2">{selectedRecord} Record</h3>
-              <p className="text-gray-600 mb-4">{records[selectedRecord].description}</p>
+              <p className="text-ts-grey-400 mb-4">{records[selectedRecord].description}</p>
 
-              <div className="bg-gray-50 p-4 rounded-lg mb-4 font-mono text-sm">
+              <div className="bg-ts-grey-50 p-4 rounded-lg mb-4 font-mono text-sm">
                 {records[selectedRecord].example}
               </div>
 
-              <div className="flex items-start gap-2 text-gray-600">
+              <div className="flex items-start gap-2 text-ts-grey-400">
                 <Info size={20} className="mt-1 flex-shrink-0" />
                 <p>{records[selectedRecord].explanation}</p>
               </div>

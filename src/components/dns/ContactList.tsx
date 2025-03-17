@@ -29,29 +29,29 @@ export const DNSContacts = () => {
     <div className="max-w-3xl mx-auto p-6">
       <div className="mb-8">
         {/* <h2 className="text-2xl font-bold text-center mb-2">DNS: The Internet's Contact List</h2> */}
-        <p className="text-center text-gray-600">
-          DNS works like your phone's contact list, translating names into numbers
+        <p className="text-center text-ts-grey-400">
+          DNS works like your phone&apos;s contact list, translating names into numbers
         </p>
       </div>
 
       {/* Comparison Headers */}
       <div className="grid grid-cols-2 gap-8 mb-6">
-        <div className="bg-blue-50 p-4 rounded-lg">
+        <div className="bg-ts-blue-50 p-4 rounded-lg">
           <div className="flex items-center gap-2">
-            <Book className="text-blue-500" />
+            <Book className="text-ts-blue-300" />
             <h3 className="font-semibold">Contact List</h3>
           </div>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-ts-grey-400 mt-1">
             Converts names to phone numbers
           </p>
         </div>
 
-        <div className="bg-green-50 p-4 rounded-lg">
+        <div className="bg-ts-green-50 p-4 rounded-lg">
           <div className="flex items-center gap-2">
-            <Globe className="text-green-500" />
+            <Globe className="text-ts-green-300" />
             <h3 className="font-semibold">DNS System</h3>
           </div>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-ts-grey-400 mt-1">
             Converts domain names to IP addresses
           </p>
         </div>
@@ -68,30 +68,30 @@ export const DNSContacts = () => {
           >
             {/* Contact Side */}
             <div className={`p-4 rounded-lg transition-colors duration-300 ${
-              hoveredPair === index ? 'bg-blue-50' : 'bg-gray-50'
+              hoveredPair === index ? 'bg-ts-blue-50' : 'bg-ts-grey-50'
             }`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">{item.contact}</p>
-                  <p className="text-sm text-gray-500 font-mono">{item.phone}</p>
+                  <p className="text-sm text-ts-grey-400 font-mono">{item.phone}</p>
                 </div>
                 {hoveredPair === index && (
-                  <ArrowRight className="text-blue-500" />
+                  <ArrowRight className="text-ts-blue-300" />
                 )}
               </div>
             </div>
 
             {/* DNS Side */}
             <div className={`p-4 rounded-lg transition-colors duration-300 ${
-              hoveredPair === index ? 'bg-green-50' : 'bg-gray-50'
+              hoveredPair === index ? 'bg-ts-green-50' : 'bg-ts-grey-50'
             }`}>
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">{item.website}</p>
-                  <p className="text-sm text-gray-500 font-mono">{item.ip}</p>
+                  <p className="text-sm text-ts-grey-400 font-mono">{item.ip}</p>
                 </div>
                 {hoveredPair === index && (
-                  <ArrowRight className="text-green-500" />
+                  <ArrowRight className="text-ts-green-300" />
                 )}
               </div>
             </div>
@@ -101,18 +101,18 @@ export const DNSContacts = () => {
 
       {/* Key Points */}
       <div className="mt-8 grid grid-cols-2 gap-8">
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-ts-grey-50 p-4 rounded-lg">
           <h4 className="font-semibold mb-2">Contact List</h4>
-          <ul className="space-y-2 text-sm text-gray-600">
+          <ul className="space-y-2 text-sm text-ts-grey-400">
             <li>• Names are easy to remember</li>
             <li>• Each name maps to a unique number</li>
             <li>• Quick lookup in your saved contacts</li>
           </ul>
         </div>
 
-        <div className="bg-gray-50 p-4 rounded-lg">
+        <div className="bg-ts-grey-50 p-4 rounded-lg">
           <h4 className="font-semibold mb-2">DNS</h4>
-          <ul className="space-y-2 text-sm text-gray-600">
+          <ul className="space-y-2 text-sm text-ts-grey-400">
             <li>• Domain names are easy to remember</li>
             <li>• Each domain maps to a unique IP</li>
             <li>• Quick lookup through DNS cache</li>

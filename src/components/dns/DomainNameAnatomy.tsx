@@ -64,16 +64,16 @@ export const DNAnatomy = () => {
         "Country: .uk, .jp",
         "Problematic: .zip"
       ],
-      bgColor: "bg-orange-50",
-      labelBg: "bg-orange-100"
+      bgColor: "bg-ts-green-50",
+      labelBg: "bg-ts-green-100"
     },
     domain: {
       title: "Domain",
       examples: [
         "example, tailscale, google"
       ],
-      bgColor: "bg-green-50",
-      labelBg: "bg-green-100"
+      bgColor: "bg-ts-blue-50",
+      labelBg: "bg-ts-blue-100"
     },
     subdomain: {
       title: "Subdomain",
@@ -81,8 +81,8 @@ export const DNAnatomy = () => {
         "Optional prefix",
         "Examples: www., blog., docs."
       ],
-      bgColor: "bg-blue-50",
-      labelBg: "bg-blue-100"
+      bgColor: "bg-ts-purple-50",
+      labelBg: "bg-ts-purple-100"
     }
   };
 
@@ -93,14 +93,14 @@ export const DNAnatomy = () => {
   return (
     <div className="flex flex-col space-y-6 max-w-4xl mx-auto p-6">
       {/* Domain Display */}
-      <div className="p-6 bg-white rounded-lg border-2 border-gray-200">
+      <div className="p-6 bg-white rounded-lg border-2 border-ts-grey-200">
         <div className="flex items-center justify-center space-x-1">
           {examples[selectedExample].parts.map((part, index) => (
             <React.Fragment key={index}>
               {index > 0 && <div className="text-xl">.</div>}
               <div className={`px-3 py-2 ${details[part.type].labelBg} rounded`}>
                 <p className="text-lg">{part.text}</p>
-                <p className="text-xs text-gray-600">{part.type}</p>
+                <p className="text-xs text-ts-grey-400">{part.type}</p>
               </div>
             </React.Fragment>
           ))}
@@ -109,7 +109,7 @@ export const DNAnatomy = () => {
         <div className="mt-4 text-center">
           <button
             onClick={handleNextExample}
-            className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+            className="px-3 py-1 text-sm bg-ts-grey-100 text-ts-grey-600 rounded hover:bg-ts-grey-200 transition-colors"
           >
             Next Example
           </button>

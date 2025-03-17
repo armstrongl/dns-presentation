@@ -10,33 +10,33 @@ export const MagicDNSExplainer = () => {
         title: "1. Device Query",
         description: "User attempts to access 'plex-server' on a Tailscale-enabled device",
         icon: Laptop,
-        bgColor: "bg-blue-50",
-        activeColor: "bg-blue-600",
-        textColor: "text-blue-600",
+        bgColor: "bg-ts-blue-50",
+        activeColor: "bg-ts-blue-300",
+        textColor: "text-ts-blue-300",
       },
       {
         title: "2. Local Tailscale DNS",
         description: "Query goes to local Tailscale DNS server (100.100.100.100)",
         icon: Server,
-        bgColor: "bg-green-50",
-        activeColor: "bg-green-600",
-        textColor: "text-green-600",
+        bgColor: "bg-ts-green-50",
+        activeColor: "bg-ts-green-300",
+        textColor: "text-ts-green-300",
       },
       {
         title: "3. Tailnet Check",
         description: "Tailscale DNS checks if 'plex-server' is a device in your Tailnet",
         icon: Search,
-        bgColor: "bg-purple-50",
-        activeColor: "bg-purple-600",
-        textColor: "text-purple-600",
+        bgColor: "bg-ts-purple-50",
+        activeColor: "bg-ts-purple-300",
+        textColor: "text-ts-purple-300",
       },
       {
         title: "4. Local Resolution",
         description: "Converts 'plex-server' to its Tailscale IP (100.100.100.123) and resolves locally",
         icon: Check,
-        bgColor: "bg-orange-50",
-        activeColor: "bg-orange-600",
-        textColor: "text-orange-600",
+        bgColor: "bg-ts-orange-50",
+        activeColor: "bg-ts-orange-300",
+        textColor: "text-ts-orange-300",
       }
     ];
 
@@ -45,33 +45,33 @@ export const MagicDNSExplainer = () => {
         title: "1. Device Query",
         description: "User attempts to access 'wikipedia.com' on a Tailscale-enabled device",
         icon: Laptop,
-        bgColor: "bg-blue-50",
-        activeColor: "bg-blue-600",
-        textColor: "text-blue-600",
+        bgColor: "bg-ts-blue-50",
+        activeColor: "bg-ts-blue-300",
+        textColor: "text-ts-blue-300",
       },
       {
         title: "2. Local Tailscale DNS",
         description: "Query goes to local Tailscale DNS server (100.100.100.100)",
         icon: Server,
-        bgColor: "bg-green-50",
-        activeColor: "bg-green-600",
-        textColor: "text-green-600",
+        bgColor: "bg-ts-green-50",
+        activeColor: "bg-ts-green-300",
+        textColor: "text-ts-green-300",
       },
       {
         title: "3. Tailnet Check",
         description: "Tailscale DNS checks if 'wikipedia.com' is a device in your Tailnet",
         icon: Search,
-        bgColor: "bg-purple-50",
-        activeColor: "bg-purple-600",
-        textColor: "text-purple-600",
+        bgColor: "bg-ts-purple-50",
+        activeColor: "bg-ts-purple-300",
+        textColor: "text-ts-purple-300",
       },
       {
         title: "4. DNS Forwarding",
         description: "Not a Tailnet device - forwards request to local DNS resolver (e.g., 8.8.8.8)",
         icon: Network,
-        bgColor: "bg-orange-50",
-        activeColor: "bg-orange-600",
-        textColor: "text-orange-600",
+        bgColor: "bg-ts-orange-50",
+        activeColor: "bg-ts-orange-300",
+        textColor: "text-ts-orange-300",
       }
     ];
 
@@ -93,8 +93,8 @@ export const MagicDNSExplainer = () => {
             onClick={() => { setQueryType('tailscale'); setCurrentStep(0); }}
             className={`px-4 py-2 rounded-lg transition-colors ${
               queryType === 'tailscale'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-ts-blue-300 text-white'
+                : 'bg-ts-grey-100 text-ts-grey-400 hover:bg-ts-grey-200'
             }`}
           >
             Tailscale Device Query
@@ -103,8 +103,8 @@ export const MagicDNSExplainer = () => {
             onClick={() => { setQueryType('regular'); setCurrentStep(0); }}
             className={`px-4 py-2 rounded-lg transition-colors ${
               queryType === 'regular'
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-ts-blue-300 text-white'
+                : 'bg-ts-grey-100 text-ts-grey-400 hover:bg-ts-grey-200'
             }`}
           >
             Regular DNS Query
@@ -114,7 +114,7 @@ export const MagicDNSExplainer = () => {
         {/* Small Screen Design */}
         <div className="block sm:hidden">
           {/* Progress indicator */}
-          <div className="mb-4 flex justify-between items-center text-sm text-gray-500">
+          <div className="mb-4 flex justify-between items-center text-sm text-ts-grey-400">
             <span>Step {currentStep + 1} of {steps.length}</span>
             <span className="font-medium">{Math.round((currentStep + 1) / steps.length * 100)}% Complete</span>
           </div>
@@ -131,7 +131,7 @@ export const MagicDNSExplainer = () => {
             <h3 className={`text-lg font-semibold mb-2 ${steps[currentStep].textColor}`}>
               {steps[currentStep].title}
             </h3>
-            <p className="text-gray-600 text-sm">{steps[currentStep].description}</p>
+            <p className="text-ts-grey-400 text-sm">{steps[currentStep].description}</p>
           </div>
 
           {/* Mobile Control Buttons */}
@@ -168,7 +168,7 @@ export const MagicDNSExplainer = () => {
                     }`}>
                       <div className={`p-4 rounded-full ${
                         isActive ? step.activeColor + ' text-white' :
-                        isPast ? 'bg-gray-200 text-gray-500' : 'bg-white ' + step.textColor
+                        isPast ? 'bg-ts-grey-200 text-ts-grey-400' : 'bg-white ' + step.textColor
                       }`}>
                         <Icon size={24} />
                       </div>
@@ -182,7 +182,7 @@ export const MagicDNSExplainer = () => {
                     </div>
                     {index < steps.length - 1 && (
                       <ArrowRight className={`transition-all duration-300 ${
-                        index < currentStep ? 'text-gray-400' : 'text-gray-300'
+                        index < currentStep ? 'text-ts-grey-300' : 'text-ts-grey-100'
                       }`} />
                     )}
                   </React.Fragment>
@@ -196,7 +196,7 @@ export const MagicDNSExplainer = () => {
             <h3 className={`text-xl font-semibold mb-2 ${steps[currentStep].textColor}`}>
               {steps[currentStep].title}
             </h3>
-            <p className="text-gray-600">{steps[currentStep].description}</p>
+            <p className="text-ts-grey-400">{steps[currentStep].description}</p>
           </div>
 
           {/* Control Buttons */}
