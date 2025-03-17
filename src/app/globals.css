@@ -70,3 +70,21 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes moveRight {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes moveDown {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+.animate-moveRight {
+  animation: moveRight 1.5s infinite linear;
+}
+
+.animate-moveDown {
+  animation: moveDown 1.5s infinite linear;
+}

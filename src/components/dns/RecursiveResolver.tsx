@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Laptop, Server, Search, Globe, Database, Clock, ArrowRight } from 'lucide-react';
 
-export const RecursiveResolver = () => {
+export const CompactRecursiveResolver = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -10,7 +10,7 @@ export const RecursiveResolver = () => {
       title: "1. Initial Request",
       description: "Browser needs to find example.com",
       icons: [
-        { icon: Laptop, label: "Browser", color: "text-blue-500" }
+        { icon: Laptop, label: "Browser", color: "text-ts-blue-300" }
       ]
     },
     {
@@ -18,8 +18,8 @@ export const RecursiveResolver = () => {
       title: "2. Check Local Cache",
       description: "First, check if we already know the IP address",
       icons: [
-        { icon: Laptop, label: "Browser", color: "text-blue-500" },
-        { icon: Clock, label: "Local Cache", color: "text-amber-500" }
+        { icon: Laptop, label: "Browser", color: "text-ts-blue-300" },
+        { icon: Clock, label: "Local Cache", color: "text-ts-orange-300" }
       ],
       result: "Not found in cache"
     },
@@ -28,8 +28,8 @@ export const RecursiveResolver = () => {
       title: "3. Ask DNS Resolver",
       description: "Contact our ISP's DNS resolver",
       icons: [
-        { icon: Laptop, label: "Browser", color: "text-blue-500" },
-        { icon: Search, label: "DNS Resolver", color: "text-green-500" }
+        { icon: Laptop, label: "Browser", color: "text-ts-blue-300" },
+        { icon: Search, label: "DNS Resolver", color: "text-ts-green-300" }
       ],
       query: "What's the IP for example.com?"
     },
@@ -38,8 +38,8 @@ export const RecursiveResolver = () => {
       title: "4. Query Root Server",
       description: "Resolver asks root server about .com",
       icons: [
-        { icon: Search, label: "DNS Resolver", color: "text-green-500" },
-        { icon: Database, label: "Root Server", color: "text-gray-500" }
+        { icon: Search, label: "DNS Resolver", color: "text-ts-green-300" },
+        { icon: Database, label: "Root Server", color: "text-ts-grey-400" }
       ],
       query: "Who manages .com domains?",
       response: "Here are the .com nameservers"
@@ -49,8 +49,8 @@ export const RecursiveResolver = () => {
       title: "5. Query TLD Server",
       description: "Resolver asks .com server about example.com",
       icons: [
-        { icon: Search, label: "DNS Resolver", color: "text-green-500" },
-        { icon: Globe, label: ".com Server", color: "text-purple-500" }
+        { icon: Search, label: "DNS Resolver", color: "text-ts-green-300" },
+        { icon: Globe, label: ".com Server", color: "text-ts-purple-300" }
       ],
       query: "Who manages example.com?",
       response: "Here are example.com nameservers"
@@ -60,8 +60,8 @@ export const RecursiveResolver = () => {
       title: "6. Query Authoritative Server",
       description: "Resolver asks example.com server for IP",
       icons: [
-        { icon: Search, label: "DNS Resolver", color: "text-green-500" },
-        { icon: Server, label: "example.com Server", color: "text-orange-500" }
+        { icon: Search, label: "DNS Resolver", color: "text-ts-green-300" },
+        { icon: Server, label: "example.com Server", color: "text-ts-orange-300" }
       ],
       query: "What's the IP for example.com?",
       response: "IP is 93.184.216.34"
@@ -71,8 +71,8 @@ export const RecursiveResolver = () => {
       title: "7. Final Response",
       description: "DNS Resolver returns the IP address",
       icons: [
-        { icon: Search, label: "DNS Resolver", color: "text-green-500" },
-        { icon: Laptop, label: "Browser", color: "text-blue-500" }
+        { icon: Search, label: "DNS Resolver", color: "text-ts-green-300" },
+        { icon: Laptop, label: "Browser", color: "text-ts-blue-300" }
       ],
       response: "The IP is 93.184.216.34"
     }
@@ -82,88 +82,134 @@ export const RecursiveResolver = () => {
     setCurrentStep((prev) => (prev < steps.length - 1 ? prev + 1 : 0));
   };
 
+  // Current step data
+  const currentStepData = steps[currentStep];
+
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-8 text-center">DNS Resolution Process</h2>
+    <div className="w-full bg-ts-grey-50 rounded-lg p-4">
+      <h2 className="text-xl font-semibold mb-2 text-ts-grey-600">DNS Resolution Process</h2>
 
-      <div className="space-y-4">
-        {steps.map((step, index) => {
-          const isVisible = index <= currentStep;
-          const isActive = index === currentStep;
+      {/* Progress Bar */}
+      <div className="w-full h-2 bg-ts-grey-200 rounded-full mb-3">
+        <div
+          className="h-full bg-ts-blue-300 rounded-full transition-all duration-300"
+          style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+        ></div>
+      </div>
 
-          return (
+      {/* Step Navigator */}
+      <div className="flex items-center mb-3 overflow-x-auto pb-2 -mx-1">
+        {steps.map((step, index) => (
+          <button
+            key={step.id}
+            onClick={() => setCurrentStep(index)}
+            className={`px-2 py-1 mx-1 text-xs rounded whitespace-nowrap flex-shrink-0 transition-colors ${
+              index === currentStep
+                ? 'bg-ts-blue-300 text-white'
+                : index < currentStep
+                  ? 'bg-ts-blue-100 text-ts-blue-400'
+                  : 'bg-ts-grey-100 text-ts-grey-400'
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+
+      {/* Current Step Content */}
+      <div className="bg-white border border-ts-grey-200 rounded-lg p-3 mb-3">
+        <div className="flex justify-between items-center mb-2">
+          <h3 className="font-medium text-ts-grey-700">{currentStepData.title}</h3>
+        </div>
+
+        <p className="text-sm text-ts-grey-500 mb-3">{currentStepData.description}</p>
+
+        {/* Icons Row */}
+        <div className="flex items-center justify-center space-x-3 mb-3">
+          {currentStepData.icons.map((icon, iconIndex) => {
+            const Icon = icon.icon;
+            return (
+              <React.Fragment key={icon.label}>
+                <div className="flex flex-col items-center">
+                  <div className="p-2 bg-ts-grey-50 rounded-lg">
+                    <Icon className={`${icon.color}`} size={20} />
+                  </div>
+                  <span className="mt-1 text-xs text-ts-grey-500">{icon.label}</span>
+                </div>
+                {iconIndex < currentStepData.icons.length - 1 && (
+                  <ArrowRight className="text-ts-grey-300" size={16} />
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
+
+        {/* Query/Response Section - Compact */}
+        {(currentStepData.query || currentStepData.response || currentStepData.result) && (
+          <div className="text-xs space-y-1">
+            {currentStepData.query && (
+              <div className="bg-ts-blue-50 text-ts-blue-400 p-1.5 rounded">
+                <span className="font-medium">Query:</span> {currentStepData.query}
+              </div>
+            )}
+            {currentStepData.response && (
+              <div className="bg-ts-green-50 text-ts-green-300 p-1.5 rounded">
+                <span className="font-medium">Response:</span> {currentStepData.response}
+              </div>
+            )}
+            {currentStepData.result && (
+              <div className="bg-ts-orange-50 text-ts-orange-300 p-1.5 rounded">
+                <span className="font-medium">Result:</span> {currentStepData.result}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Steps Visualization */}
+      <div className="relative h-12 mb-3">
+        <div className="absolute inset-0 flex items-center">
+          <div className="h-0.5 w-full bg-ts-grey-200"></div>
+        </div>
+        <div className="relative flex justify-between">
+          {steps.map((step, index) => (
             <div
               key={step.id}
-              className={`transition-all duration-500 overflow-hidden ${
-                isVisible ? 'opacity-100 max-h-96' : 'opacity-0 max-h-0'
-              }`}
+              className="flex flex-col items-center"
+              onClick={() => setCurrentStep(index)}
             >
-              <div className={`p-6 rounded-lg border-2 transition-colors ${
-                isActive ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'
-              }`}>
-                {/* Step Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-lg">{step.title}</h3>
-                  <span className={`text-sm px-2 py-1 rounded ${
-                    isActive ? 'bg-blue-100 text-blue-700' : 'bg-gray-100'
-                  }`}>
-                    Step {index + 1}/{steps.length}
-                  </span>
-                </div>
-
-                <p className="text-gray-600 mb-4">{step.description}</p>
-
-                {/* Icons and Communication */}
-                <div className="flex items-center justify-center gap-6 my-4">
-                  {step.icons.map((icon, iconIndex) => {
-                    const Icon = icon.icon;
-                    return (
-                      <React.Fragment key={icon.label}>
-                        <div className="flex flex-col items-center">
-                          <div className="p-3 bg-white rounded-lg shadow-sm">
-                            <Icon className={`${icon.color}`} size={24} />
-                          </div>
-                          <span className="mt-2 text-sm font-medium">{icon.label}</span>
-                        </div>
-                        {iconIndex < step.icons.length - 1 && (
-                          <ArrowRight className="text-gray-400" />
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </div>
-
-                {/* Query/Response Section */}
-                {(step.query || step.response || step.result) && (
-                  <div className="mt-4 space-y-2">
-                    {step.query && (
-                      <div className="bg-blue-100 text-blue-800 p-2 rounded text-sm">
-                        Query: {step.query}
-                      </div>
-                    )}
-                    {step.response && (
-                      <div className="bg-green-100 text-green-800 p-2 rounded text-sm">
-                        Response: {step.response}
-                      </div>
-                    )}
-                    {step.result && (
-                      <div className="bg-amber-100 text-amber-800 p-2 rounded text-sm">
-                        Result: {step.result}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
+              <div
+                className={`w-4 h-4 rounded-full transition-colors cursor-pointer ${
+                  index <= currentStep ? 'bg-ts-blue-300' : 'bg-ts-grey-300'
+                }`}
+              />
+              {index === currentStep && (
+                <span className="absolute top-5 text-xs font-medium text-ts-grey-500 whitespace-nowrap">
+                  Step {index + 1}
+                </span>
+              )}
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
       {/* Control Button */}
-      <div className="mt-8 text-center">
+      <div className="flex justify-between">
+        <button
+          onClick={() => setCurrentStep(prev => Math.max(0, prev - 1))}
+          disabled={currentStep === 0}
+          className={`px-3 py-1.5 text-sm rounded transition-colors ${
+            currentStep === 0
+              ? 'bg-ts-grey-200 text-ts-grey-400 cursor-not-allowed'
+              : 'bg-ts-grey-200 text-ts-grey-600 hover:bg-ts-grey-300'
+          }`}
+        >
+          Previous
+        </button>
+
         <button
           onClick={handleNext}
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
+          className="bg-ts-blue-300 text-white px-3 py-1.5 text-sm rounded hover:bg-ts-blue-400 transition-colors"
         >
           {currentStep === steps.length - 1 ? "Start Over" : "Next Step"}
         </button>
@@ -172,4 +218,4 @@ export const RecursiveResolver = () => {
   );
 };
 
-export default RecursiveResolver;
+export default CompactRecursiveResolver;
