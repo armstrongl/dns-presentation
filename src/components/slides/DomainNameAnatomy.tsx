@@ -92,6 +92,9 @@ export const DNAnatomy = () => {
 
   return (
     <div className="flex flex-col space-y-6 max-w-4xl mx-auto p-6">
+      {/* Title */}
+      <h2 className="text-2xl font-bold text-center text-ts-grey-800">Domain Name Anatomy</h2>
+
       {/* Domain Display */}
       <div className="p-6 bg-white rounded-lg border-2 border-ts-grey-200">
         <div className="flex items-center justify-center space-x-1">

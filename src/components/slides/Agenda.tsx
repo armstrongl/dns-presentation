@@ -8,7 +8,7 @@ export const Agenda = () => {
       <Card className="border-ts-blue-100 shadow-sm bg-gradient-to-b from-white to-ts-blue-50">
         <CardHeader className="pb-2 text-center">
           <CardTitle className="text-2xl font-semibold text-ts-grey-600">
-            Agenda
+            DNS and Tailscale
           </CardTitle>
         </CardHeader>
 
