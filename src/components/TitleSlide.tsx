@@ -1,42 +1,34 @@
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import React from 'react';
 
-interface TitleSlideProps {
-  title: string;
-  onPrevious: () => void;
-  onNext: () => void;
-}
-
-export function TitleSlide({ title, onPrevious, onNext }: TitleSlideProps) {
+const TitleSlide = () => {
   return (
-    <div className="relative flex h-full w-full items-center justify-center">
-      {/* Navigation Arrows */}
-      <div className="absolute left-4 top-1/2 -translate-y-1/2">
-        <button
-          onClick={onPrevious}
-          className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-      </div>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2">
-        <button
-          onClick={onNext}
-          className="rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
+    <div className="w-full max-w-3xl mx-auto bg-ts-grey-50 rounded-lg p-8 md:p-12">
+      {/* Content container */}
+      <div className="flex flex-col items-center justify-center">
+        {/* Presentation title */}
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-ts-grey-700 mb-4">
+          DNS and Tailscale
+        </h1>
+
+        <h2 className="text-xl md:text-2xl font-medium text-ts-blue-300 mb-6">
+          How Modern Name Resolution Works
+        </h2>
+
+        {/* Horizontal divider */}
+        <div className="w-16 h-1 bg-ts-blue-300 mx-auto my-6"></div>
+
+        {/* Subtitle */}
+        <p className="text-lg md:text-xl text-ts-grey-500 mb-8">
+          Understanding the magic behind Tailscale&apos;s DNS implementation
+        </p>
       </div>
 
-      {/* Title */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -20 }}
-        className="flex flex-col items-center justify-center px-16 text-center"
-      >
-        <h1 className="text-4xl font-bold text-white">{title}</h1>
-      </motion.div>
+      {/* Footer with date */}
+      <div className="mt-8 text-right text-ts-grey-400 text-sm">
+        March 2025
+      </div>
     </div>
   );
-}
+};
+
+export default TitleSlide;

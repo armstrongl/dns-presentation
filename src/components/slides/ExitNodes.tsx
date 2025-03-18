@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Group } from '@visx/group';
 import { LinePath } from '@visx/shape';
 import { curveBasis } from '@visx/curve';
@@ -55,12 +55,45 @@ interface Step {
 }
 
 // Constants for our visualization
-const width = 500;
-const height = 250;
-const padding = 40;
+const baseWidth = 500;
+const baseHeight = 250;
+const basePadding = 40;
+
+// Add useWindowSize hook
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: typeof window !== 'undefined' ? window.innerWidth : baseWidth,
+    height: typeof window !== 'undefined' ? window.innerHeight : baseHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowSize;
+};
 
 const ExitNodeDNSFlow = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const { width: windowWidth } = useWindowSize();
+
+  // Calculate responsive dimensions
+  const isMobile = windowWidth < 768;
+  const width = isMobile ? Math.min(windowWidth - 32, baseWidth) : baseWidth;
+  const height = isMobile ? baseHeight * 0.6 : baseHeight;
+  const padding = isMobile ? basePadding * 0.4 : basePadding;
+  const nodeRadius = isMobile ? 15 : 20;
+  const iconSize = isMobile ? 12 : 16;
+  const labelFontSize = isMobile ? 10 : 12;
+  const edgeLabelFontSize = isMobile ? 8 : 10;
 
   // Define nodes (components in our DNS flow)
   const nodes: Node[] = [
@@ -217,15 +250,15 @@ const ExitNodeDNSFlow = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
-      <h2 className="text-xl font-bold text-ts-grey-700 mb-4 text-center">
+    <div className="bg-white rounded-lg shadow-md p-2 sm:p-6 max-w-3xl mx-auto">
+      <h2 className="text-lg sm:text-xl font-bold text-ts-grey-700 mb-2 sm:mb-4 text-center">
         Tailscale DNS with Exit Nodes
       </h2>
 
       {/* Progress indicator */}
-      <div className="mb-6 flex justify-between items-center">
-        <span className="text-sm text-ts-grey-500">Step {currentStep + 1} of {steps.length}</span>
-        <div className="w-2/3 h-2 bg-ts-grey-100 rounded-full overflow-hidden">
+      <div className="mb-2 sm:mb-6 flex justify-between items-center">
+        <span className="text-xs sm:text-sm text-ts-grey-500">Step {currentStep + 1} of {steps.length}</span>
+        <div className="w-2/3 h-1 sm:h-2 bg-ts-grey-100 rounded-full overflow-hidden">
           <div
             className="h-full bg-ts-blue-300 transition-all duration-300"
             style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
@@ -234,119 +267,127 @@ const ExitNodeDNSFlow = () => {
       </div>
 
       {/* Main visualization */}
-      <div className="mb-6">
-        {currentStepData.isSplitDNS ? (
-          <SplitDNSView />
-        ) : (
-          <svg width={width} height={height} className="mx-auto">
-            <Group>
-              {/* Draw edges first (so they appear behind nodes) */}
-              {edges.map(edge => {
-                const isActive = isEdgeActive(edge.id);
-                const points = generatePath(edge.source, edge.target, edge.reverse);
+      <div className="mb-2 sm:mb-6 relative">
+        <div className="overflow-x-auto">
+          {currentStepData.isSplitDNS ? (
+            <SplitDNSView />
+          ) : (
+            <svg
+              width={width}
+              height={height}
+              className="mx-auto"
+              style={{ maxWidth: '100%', height: 'auto' }}
+              viewBox={`0 0 ${width} ${height}`}
+            >
+              <Group>
+                {/* Draw edges first (so they appear behind nodes) */}
+                {edges.map(edge => {
+                  const isActive = isEdgeActive(edge.id);
+                  const points = generatePath(edge.source, edge.target, edge.reverse);
 
-                return (
-                  <React.Fragment key={edge.id}>
-                    <LinePath
-                      data={points}
-                      x={d => d.x}
-                      y={d => d.y}
-                      stroke={isActive ? "#6395F5" : "#DAD6D5"}
-                      strokeWidth={isActive ? 2 : 1}
-                      curve={curveBasis}
-                      strokeDasharray={edge.reverse ? "5,5" : undefined}
-                    />
-
-                    {/* Edge label for WireGuard Tunnel */}
-                    {edge.label && isActive && (
-                      <Text
-                        x={(points[1].x + points[2].x) / 2}
-                        y={(points[1].y + points[2].y) / 2 - 10}
-                        textAnchor="middle"
-                        fontSize={10}
-                        fill="#706E6D"
-                      >
-                        {edge.label}
-                      </Text>
-                    )}
-
-                    {/* Arrow direction indicator */}
-                    {isActive && (
-                      <circle
-                        cx={edge.reverse ? points[1].x : points[points.length - 2].x}
-                        cy={edge.reverse ? points[1].y : points[points.length - 2].y}
-                        r={3}
-                        fill="#6395F5"
+                  return (
+                    <React.Fragment key={edge.id}>
+                      <LinePath
+                        data={points}
+                        x={d => d.x}
+                        y={d => d.y}
+                        stroke={isActive ? "#6395F5" : "#DAD6D5"}
+                        strokeWidth={isActive ? 2 : 1}
+                        curve={curveBasis}
+                        strokeDasharray={edge.reverse ? "5,5" : undefined}
                       />
-                    )}
-                  </React.Fragment>
-                );
-              })}
 
-              {/* Draw nodes */}
-              {nodes.map(node => {
-                const isActive = isNodeActive(node.id);
-                const Icon = node.icon;
+                      {/* Edge label for WireGuard Tunnel */}
+                      {edge.label && isActive && (
+                        <Text
+                          x={(points[1].x + points[2].x) / 2}
+                          y={(points[1].y + points[2].y) / 2 - 8}
+                          textAnchor="middle"
+                          fontSize={edgeLabelFontSize}
+                          fill="#706E6D"
+                        >
+                          {edge.label}
+                        </Text>
+                      )}
 
-                return (
-                  <Group key={node.id} top={node.y} left={node.x}>
-                    {/* Node background circle */}
-                    <circle
-                      r={20}
-                      fill={isActive ? "#6395F5" : "#F9F7F6"}
-                      stroke={isActive ? "#3B51AA" : "#DAD6D5"}
-                      strokeWidth={1}
-                    />
+                      {/* Arrow direction indicator */}
+                      {isActive && (
+                        <circle
+                          cx={edge.reverse ? points[1].x : points[points.length - 2].x}
+                          cy={edge.reverse ? points[1].y : points[points.length - 2].y}
+                          r={isMobile ? 2 : 3}
+                          fill="#6395F5"
+                        />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
 
-                    {/* Node icon */}
-                    <foreignObject
-                      x={-12}
-                      y={-12}
-                      width={24}
-                      height={24}
-                    >
-                      <div className="flex items-center justify-center w-full h-full">
-                        <Icon size={16} color={isActive ? "#FFFFFF" : "#706E6D"} />
-                      </div>
-                    </foreignObject>
+                {/* Draw nodes */}
+                {nodes.map(node => {
+                  const isActive = isNodeActive(node.id);
+                  const Icon = node.icon;
 
-                    {/* Node label */}
-                    <Text
-                      dy={36}
-                      textAnchor="middle"
-                      fontSize={12}
-                      fontWeight={isActive ? "bold" : "normal"}
-                      fill={isActive ? "#3B51AA" : "#706E6D"}
-                    >
-                      {node.label}
-                    </Text>
-                  </Group>
-                );
-              })}
-            </Group>
-          </svg>
-        )}
+                  return (
+                    <Group key={node.id} top={node.y} left={node.x}>
+                      {/* Node background circle */}
+                      <circle
+                        r={nodeRadius}
+                        fill={isActive ? "#6395F5" : "#F9F7F6"}
+                        stroke={isActive ? "#3B51AA" : "#DAD6D5"}
+                        strokeWidth={1}
+                      />
+
+                      {/* Node icon */}
+                      <foreignObject
+                        x={-nodeRadius * 0.6}
+                        y={-nodeRadius * 0.6}
+                        width={nodeRadius * 1.2}
+                        height={nodeRadius * 1.2}
+                      >
+                        <div className="flex items-center justify-center w-full h-full">
+                          <Icon size={iconSize} color={isActive ? "#FFFFFF" : "#706E6D"} />
+                        </div>
+                      </foreignObject>
+
+                      {/* Node label */}
+                      <Text
+                        dy={nodeRadius * 1.8}
+                        textAnchor="middle"
+                        fontSize={labelFontSize}
+                        fontWeight={isActive ? "bold" : "normal"}
+                        fill={isActive ? "#3B51AA" : "#706E6D"}
+                      >
+                        {node.label}
+                      </Text>
+                    </Group>
+                  );
+                })}
+              </Group>
+            </svg>
+          )}
+        </div>
       </div>
 
       {/* Step description */}
-      <div className="p-4 mb-6 rounded-lg border border-ts-grey-200 bg-ts-blue-50">
-        <h3 className="font-semibold mb-2 text-ts-blue-400">
+      <div className="p-2 sm:p-4 mb-2 sm:mb-6 rounded-lg border border-ts-grey-200 bg-ts-blue-50">
+        <h3 className="font-semibold mb-1 sm:mb-2 text-ts-blue-400 text-xs sm:text-base">
           {currentStepData.title}
         </h3>
-        <p className="text-ts-grey-600">{currentStepData.description}</p>
+        <p className="text-ts-grey-600 text-xs sm:text-base">{currentStepData.description}</p>
       </div>
 
       {/* Navigation controls */}
       <div className="flex justify-between">
         <button
           onClick={handlePrevious}
-          className="px-4 py-2 bg-ts-grey-100 text-ts-grey-600 rounded hover:bg-ts-grey-200 transition-colors"
+          className="px-2 sm:px-4 py-1 sm:py-2 bg-ts-grey-100 text-ts-grey-600 rounded hover:bg-ts-grey-200 transition-colors text-xs sm:text-base"
         >
           Previous
         </button>
         <button
           onClick={handleNext}
-          className="px-4 py-2 bg-ts-blue-300 text-white rounded hover:bg-ts-blue-400 transition-colors"
+          className="px-2 sm:px-4 py-1 sm:py-2 bg-ts-blue-300 text-white rounded hover:bg-ts-blue-400 transition-colors text-xs sm:text-base"
         >
           {currentStep === steps.length - 1 ? "Restart" : "Next"}
         </button>

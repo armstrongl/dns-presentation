@@ -56,6 +56,8 @@ export const DNSRecordsExplorer = () => {
 
   return (
     <div className="p-4 sm:p-6 max-w-4xl mx-auto">
+      <h2 className="text-2xl font-bold text-center mb-6 text-ts-grey-800">DNS Record Types Explorer</h2>
+
       {/* Mobile Design */}
       <div className="block sm:hidden">
         {/* Vertical Button Stack */}
