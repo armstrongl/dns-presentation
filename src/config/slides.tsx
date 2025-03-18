@@ -10,6 +10,9 @@ import Quad100 from "@/components/slides/Quad100";
 import SplitDNS from "@/components/slides/SplitDNS";
 import MagicDNS from "@/components/slides/MagicDNS";
 import RealWorldScenarios from "@/components/slides/RealWorldScenarios";
+import CorporateDNSIntegration from "@/components/slides/CorporateDNSIntegration";
+import ExitNodesAndDNS from "@/components/slides/ExitNodesAndDNS";
+import SplitDNSWithExitNodes from "@/components/slides/SplitDNSWithExitNodes";
 import SectionIntroSlide from "@/components/SectionIntroSlide";
 import TitleSlide from "@/components/TitleSlide";
 // import CoreComponents from "@/components/slides/CoreComponents";
@@ -40,9 +43,9 @@ export const slides: Slide[] = [
       totalSections={5}
       talkingPoints={[
         "What is DNS?",
-        "DNS resolution process",
-        "Anatomy of a domain name",
-        "DNS limitations"
+        "DNS Resolution Process",
+        "Anatomy of a Domain Name",
+        "DNS Limitations"
       ]}
 />},
   {
@@ -80,10 +83,10 @@ export const slides: Slide[] = [
       sectionNumber={2}
       totalSections={5}
       talkingPoints={[
-        "Dedicated resolver at 100.100.100.100 (Quad100)",
-        "Push-based instant updates",
-        "Local-first resolution for tailnet names",
-        "DoH upgrade for external requests",
+        "Dedicated Resolver at 100.100.100.100 (Quad100)",
+        "Push-based Instant Updates",
+        "Local-first Resolution for Tailnet Devices",
+        "DoH Upgrade for External Requests *",
       ]}
 />},
   {
@@ -124,12 +127,25 @@ export const slides: Slide[] = [
       sectionNumber={4}
       totalSections={5}
       talkingPoints={[
-        "Corporate DNS",
+        "Corporate DNS Infrastructure",
         "DNS and Exit Nodes",
+        "Split DNS with Exit Nodes",
       ]}
 />},
   {
     content: <RealWorldScenarios />,
+    section: "Tailscale DNS"
+  },
+  {
+    content: <CorporateDNSIntegration />,
+    section: "Tailscale DNS"
+  },
+  {
+    content: <ExitNodesAndDNS />,
+    section: "Tailscale DNS"
+  },
+  {
+    content: <SplitDNSWithExitNodes />,
     section: "Tailscale DNS"
   },
   // Conclusion

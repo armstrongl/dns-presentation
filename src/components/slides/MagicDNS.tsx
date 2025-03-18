@@ -214,7 +214,7 @@ export const MagicDNSProcess = () => {
     },
     {
       id: 'push-updates',
-      title: "4. Push Updates to All Devices",
+      title: "4. Push Updates to All Devices (subject to ACLs)",
       description: "Both names (original and suffixed) pushed to all devices",
       icon: RefreshCw,
       bgColor: "bg-ts-orange-50",

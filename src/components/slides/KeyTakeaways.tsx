@@ -1,5 +1,5 @@
 import React from 'react';
-import { AlertCircle, RefreshCw, Zap, Layers } from 'lucide-react';
+import { AlertCircle, Zap, Layers } from 'lucide-react';
 
 const KeyTakeaways: React.FC = () => {
   return (
@@ -40,7 +40,7 @@ const KeyTakeaways: React.FC = () => {
         </div>
 
         {/* Takeaway 3: Core Features Working Together */}
-        <div className="bg-white rounded-lg border border-[#DAD6D5] p-5 shadow-sm">
+        <div className="bg-white rounded-lg border border-[#DAD6D5] p-5 shadow-sm md:col-span-2">
           <div className="flex items-start">
             <div className="bg-[#EFFFED] p-3 rounded-lg mr-4">
               <Layers size={24} className="text-[#22AB74]" />
@@ -51,23 +51,6 @@ const KeyTakeaways: React.FC = () => {
                 <li>MagicDNS provides automatic name resolution.</li>
                 <li>Quad100 enables instant updates.</li>
                 <li>Split DNS allows granular control over how different domains are resolved.</li>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Takeaway 4: Adaptability */}
-        <div className="bg-white rounded-lg border border-[#DAD6D5] p-5 shadow-sm">
-          <div className="flex items-start">
-            <div className="bg-[#FCF9E9] p-3 rounded-lg mr-4">
-              <RefreshCw size={24} className="text-[#E07D19]" />
-            </div>
-            <div>
-              <h3 className="font-medium text-[#19224A] mb-2">Flexible Adaptability</h3>
-              <p className="text-sm text-[#444342]">
-                Tailscale DNS adapts to different network environments based on the
-                available DNS capabilities, providing a consistent experience while
-                integrating with existing infrastructure.
               </p>
             </div>
           </div>

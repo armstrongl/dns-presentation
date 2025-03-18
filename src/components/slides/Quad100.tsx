@@ -100,9 +100,9 @@ const Quad100Slide = () => {
             activeTab === 'tailnet' ? 'bg-ts-green-50 text-ts-green-600' : 'bg-ts-orange-50 text-ts-orange-600'
           }`}>
             {activeTab === 'tailnet' ? (
-              <>Resolves device names like <code className="bg-white px-1 rounded">laptop.tailnet.ts.net</code> locally</>
+              <>Resolves device names like <code className="bg-white px-1 rounded">laptop</code> or <code className="bg-white px-1 rounded">laptop.tailnet.ts.net</code> locally</>
             ) : (
-              <>Forwards queries for external domains to your configured DNS resolver</>
+              <>Forwards queries for external domains to your configured DNS resolver (default router or public DNS resolver like 8.8.8.8)</>
             )}
           </div>
         </div>
